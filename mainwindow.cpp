@@ -1,11 +1,9 @@
 #include "mainwindow.hpp"
 
-MainWindow::MainWindow(QWidget *parent)
+namespace subara {
+
+mainwindow::mainwindow(QWidget *parent)
     : QMainWindow(parent)
-{
-}
+{}
 
-MainWindow::~MainWindow()
-{
-
-}
+} // end namespace subara

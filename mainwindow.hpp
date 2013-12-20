@@ -1,15 +1,18 @@
-#ifndef MAINWINDOW_HPP
-#define MAINWINDOW_HPP
+#ifndef SUBARA_MAINWINDOW_HPP
+#define SUBARA_MAINWINDOW_HPP
 
 #include <QMainWindow>
 
-class MainWindow : public QMainWindow
+namespace subara {
+
+class mainwindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = 0);
-    ~MainWindow();
+    mainwindow(QWidget *parent = 0);
 };
 
-#endif // MAINWINDOW_HPP
+} // end namespace subara
+
+#endif // SUBARA_MAINWINDOW_HPP

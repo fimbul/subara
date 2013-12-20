@@ -1,11 +1,30 @@
-#include "mainwindow.hpp"
 #include <QApplication>
+#include "config/config.hpp"
+#include "config/initialize.hpp"
+#include "oauth/authorize.hpp"
+#include "mainwindow.hpp"
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
-    MainWindow w;
-    w.show();
+    QApplication subara(argc, argv);
 
-    return a.exec();
+    subara::config::initialize();
+
+    if (!subara::config::is_authorized)
+    {
+        try
+        {
+            subara::oauth::authorize();
+        }
+        catch (...)
+        {
+            QApplication::quit();
+            exit(EXIT_FAILURE);
+        }
+    }
+
+    subara::mainwindow main_window;
+    main_window.show();
+
+    subara.exec();
 }
