@@ -14,6 +14,14 @@ namespace oauth {
 void authorize_impl();
 void authorize();
 
+template <class T>
+void err_msg_alert(const T& errmsg)
+{
+    QMessageBox errmsg_box;
+    errmsg_box.setText(errmsg);
+    errmsg_box.exec();
+}
+
 } // end namespace oauth
 
 } // end namespace subara

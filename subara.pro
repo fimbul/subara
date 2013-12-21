@@ -15,7 +15,8 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     oauth/authorize.cpp \
-    config/initialize.cpp
+    config/initialize.cpp \
+    config/config.cpp
 
 HEADERS  += mainwindow.hpp \
     config/config.hpp \
@@ -23,3 +24,7 @@ HEADERS  += mainwindow.hpp \
     config/initialize.hpp
 
 CONFIG += c++11
+
+OTHER_FILES += \
+    viewer/viewer.html.txt \
+    viewer/viewer.css.txt

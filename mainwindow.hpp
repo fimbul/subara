@@ -2,6 +2,8 @@
 #define SUBARA_MAINWINDOW_HPP
 
 #include <QMainWindow>
+#include <QWebView>
+#include <QWebFrame>
 
 namespace subara {
 
@@ -11,6 +13,11 @@ class mainwindow : public QMainWindow
 
 public:
     mainwindow(QWidget *parent = 0);
+
+private:
+    QWebView viewer;
+    void initialize();
+    void initialize_view();
 };
 
 } // end namespace subara

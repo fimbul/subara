@@ -1,0 +1,10 @@
+R"delimiter(
+html, body {
+  color : #ffffff;
+  background-color : #1f354c;
+}
+
+body {
+  text-align: center;
+}
+)delimiter"

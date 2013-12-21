@@ -12,26 +12,17 @@ void authorize()
     }
     catch (const char* errmsg)
     {
-        QMessageBox errmsg_box;
-        errmsg_box.setText(errmsg);
-        errmsg_box.exec();
-
+        err_msg_alert(errmsg);
         throw;
     }
     catch (const QString& errmsg)
     {
-        QMessageBox errmsg_box;
-        errmsg_box.setText(errmsg);
-        errmsg_box.exec();
-
+        err_msg_alert(errmsg);
         throw;
     }
     catch (...)
     {
-        QMessageBox errmsg_box;
-        errmsg_box.setText("Authorization Error");
-        errmsg_box.exec();
-
+        err_msg_alert("Authorization Error");
         throw;
     }
 }
