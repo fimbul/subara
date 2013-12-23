@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QWebView>
 #include <QWebFrame>
+#include "viewer/viewer.hpp"
 
 namespace subara {
 
@@ -15,9 +16,8 @@ public:
     mainwindow(QWidget *parent = 0);
 
 private:
-    QWebView viewer;
+    viewer viewer;
     void initialize();
-    void initialize_view();
 };
 
 } // end namespace subara

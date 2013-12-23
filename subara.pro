@@ -16,12 +16,17 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     oauth/authorize.cpp \
     config/initialize.cpp \
-    config/config.cpp
+    config/config.cpp \
+    viewer/viewer.cpp \
+    oauth/api/api.cpp
 
 HEADERS  += mainwindow.hpp \
     config/config.hpp \
     oauth/authorize.hpp \
-    config/initialize.hpp
+    config/initialize.hpp \
+    viewer/viewer.hpp \
+    oauth/api/api.hpp \
+    oauth/errmsg.hpp
 
 CONFIG += c++11
 

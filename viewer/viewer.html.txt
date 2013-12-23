@@ -1,12 +1,15 @@
 R"delimiter(
+<!DOCTYPE html>
 <html>
 <head>
+  <meta charset="UTF-8">
   <title>Subara</title>
-  <style type="text/css">
+  <style type="text/css" id="viewer_css">
   </style>
 </head>
 <body>
-tumblr
+  <div id="dashboard">
+  </div>
 </body>
 </html>
 )delimiter"

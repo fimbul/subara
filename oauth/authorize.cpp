@@ -6,6 +6,7 @@ namespace oauth {
 
 void authorize()
 {
+    /* [TASK] implement "retry" button */
     try
     {
         authorize_impl();
@@ -226,6 +227,10 @@ void authorize_impl()
         settings.setValue("config/oauth_token", oauth_token);
         settings.setValue("config/oauth_token_secret", oauth_token_secret);
         settings.setValue("config/is_authorized", true);
+
+        subara::config::oauth_token = oauth_token;
+        subara::config::oauth_token_secret = oauth_token_secret;
+        subara::config::is_authorized = true;
     } // end get access token
 
     qDebug() << "authorization success";
