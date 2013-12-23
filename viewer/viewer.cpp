@@ -55,15 +55,16 @@ void viewer::initialize_dashboard()
     }
 
     QVector<QString> initialize_dashboard_js = {
-        "var posts = " + dashboard_data + ".response.posts;",
         "var dashboard = \"\";",
-        "posts.forEach(function(element){ if (element.type == \"photo\") { element.photos.forEach(function(photo){ dashboard += \"<img src=\\\"\" + photo.alt_sizes[0].url + \"\\\" /><br />\"; }) } });",
+        "var posts = " + dashboard_data + ".response.posts;",
+        "function photo_post(post) { post.photos.forEach(function(photo){ dashboard += \"<img src=\\\"\" + photo.alt_sizes[0].url + \"\\\" /><br />\"; }); }",
+        "posts.forEach(function(post){ if (post.type == \"photo\") { photo_post(post); } });",
         "document.getElementById(\"dashboard\").innerHTML = dashboard;"
     };
 
     for(auto& elem : initialize_dashboard_js)
     {
-        this->page()->mainFrame()->evaluateJavaScript(elem.simplified());
+        this->page()->mainFrame()->evaluateJavaScript(elem);
     }
 }
 
