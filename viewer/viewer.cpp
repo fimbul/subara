@@ -44,21 +44,28 @@ void viewer::initialize_dashboard()
     catch (const char* errmsg)
     {
         oauth::err_msg_alert(errmsg);
+        return;
     }
     catch (const QString& errmsg)
     {
         oauth::err_msg_alert(errmsg);
+        return;
     }
     catch (...)
     {
         oauth::err_msg_alert("Error: getting dashboard failed");
+        return;
     }
 
     QVector<QString> initialize_dashboard_js = {
         "var dashboard = \"\";",
         "var posts = " + dashboard_data + ".response.posts;",
-        "function photo_post(post) { post.photos.forEach(function(photo){ dashboard += \"<img src=\\\"\" + photo.alt_sizes[0].url + \"\\\" /><br />\"; }); }",
-        "posts.forEach(function(post){ if (post.type == \"photo\") { photo_post(post); } });",
+    #include "viewer/dashboard/photo_post.js.txt"
+        ,
+    #include "viewer/dashboard/quote_post.js.txt"
+        ,
+    #include "viewer/dashboard/dashboard.js.txt"
+        ,
         "document.getElementById(\"dashboard\").innerHTML = dashboard;"
     };
 

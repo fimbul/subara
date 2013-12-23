@@ -1,0 +1,14 @@
+R"delimiter(
+posts.forEach(
+  function(post)
+  {
+    if (post.type == "photo")
+    {
+      photo_post(post);
+    } else if (post.type == "quote")
+    {
+      quote_post(post);
+    }
+  }
+);
+)delimiter"

@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
     }
 
     subara::mainwindow main_window;
-    main_window.show();
+    main_window.showMaximized();
 
     subara.exec();
 }

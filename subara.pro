@@ -32,4 +32,7 @@ CONFIG += c++11
 
 OTHER_FILES += \
     viewer/viewer.html.txt \
-    viewer/viewer.css.txt
+    viewer/viewer.css.txt \
+    viewer/dashboard/photo_post.js.txt \
+    viewer/dashboard/dashboard.js.txt \
+    viewer/dashboard/quote_post.js.txt

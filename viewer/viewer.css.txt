@@ -2,9 +2,77 @@ R"delimiter(
 html, body {
   color : #ffffff;
   background-color : #1f354c;
+  margin: 0px;
+  padding: 0px;
 }
 
 body {
+  position: relative;
   text-align: center;
 }
+
+#dashboard {
+  floatL none;
+  position:relative;
+  width: 600px;
+  height: auto;
+  margin: 0 auto;
+}
+
+div.photo_post {
+  float: left;
+  position:relative;
+  width: 100%;
+  height: auto;
+  padding: 10px 0;
+  margin: 10px auto;
+  background-color: #ffffff;
+  color: #555555;
+  border-radius: 10px;
+}
+
+img.photo_post {
+  margin: 5px auto;
+  width: 95%;
+}
+
+div.quote_post {
+  float: left;
+  position:relative;
+  display:table;
+  width: 100%;
+  height: auto;
+  min-height: 144px;
+  margin: 10px auto;
+  background-color: #ffffff;
+  color: #555555;
+  border-radius: 10px;
+}
+
+div.quote_post2 {
+  width: 98%;
+  margin: 5px 0;
+  padding: 10px 0;
+  display:table-cell;
+  vertical-align:middle;
+  font-size: 18px;
+  line-height: 36px;
+  text-align: left;
+  color: #555555;
+}
+
+img.post_avatar {
+  position: absolute;
+  top: 0px;
+  left: -84px;
+  border-radius: 10px;
+}
+
+img.balloon {
+  position: absolute;
+  top: 24px;
+  left: -16px;
+  width: 16px;
+}
+
 )delimiter"
