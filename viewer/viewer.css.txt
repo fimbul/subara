@@ -1,7 +1,8 @@
 R"delimiter(
 html, body {
   color : #ffffff;
-  background-color : #1f354c;
+  //background-color : #1f354c;
+  background-color : #151515;
   margin: 0px;
   padding: 0px;
 }
@@ -59,6 +60,36 @@ div.quote_post2 {
   line-height: 36px;
   text-align: left;
   color: #555555;
+}
+
+div.text_post {
+  float: left;
+  position:relative;
+  display:table;
+  width: 100%;
+  height: auto;
+  min-height: 144px;
+  margin: 10px auto;
+  background-color: #ffffff;
+  color: #555555;
+  border-radius: 10px;
+}
+
+div.text_post2 {
+  width: 98%;
+  margin: 5px 0;
+  padding: 10px 0;
+  display:table-cell;
+  vertical-align:middle;
+  font-size: 18px;
+  line-height: 36px;
+  text-align: left;
+  color: #555555;
+}
+
+h1.text_post {
+  margin: 0;
+  padding: 0;
 }
 
 img.post_avatar {

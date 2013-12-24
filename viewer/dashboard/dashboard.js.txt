@@ -2,12 +2,19 @@ R"delimiter(
 posts.forEach(
   function(post)
   {
-    if (post.type == "photo")
+    var post_type = post.type;
+
+    if (post_type == "photo")
     {
       photo_post(post);
-    } else if (post.type == "quote")
+    }
+    else if (post_type == "quote")
     {
       quote_post(post);
+    }
+    else if (post_type == "text")
+    {
+      text_post(post);
     }
   }
 );
