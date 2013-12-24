@@ -36,4 +36,5 @@ OTHER_FILES += \
     viewer/dashboard/photo_post.js.txt \
     viewer/dashboard/dashboard.js.txt \
     viewer/dashboard/quote_post.js.txt \
-    viewer/dashboard/text_post.js.txt
+    viewer/dashboard/text_post.js.txt \
+    viewer/dashboard/link_post.js.txt

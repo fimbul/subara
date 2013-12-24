@@ -1,7 +1,6 @@
 R"delimiter(
 html, body {
   color : #ffffff;
-  //background-color : #1f354c;
   background-color : #151515;
   margin: 0px;
   padding: 0px;
@@ -23,9 +22,9 @@ body {
 div.photo_post {
   float: left;
   position:relative;
-  width: 100%;
+  width: 95%;
   height: auto;
-  padding: 10px 0;
+  padding: 10px 15px;
   margin: 10px auto;
   background-color: #ffffff;
   color: #555555;
@@ -34,51 +33,57 @@ div.photo_post {
 
 img.photo_post {
   margin: 5px auto;
-  width: 95%;
+  width: 100%;
 }
 
 div.quote_post {
   float: left;
   position:relative;
   display:table;
-  width: 100%;
+  width: 95%;
   height: auto;
   min-height: 144px;
   margin: 10px auto;
+  padding: 10px 15px;
   background-color: #ffffff;
   color: #555555;
   border-radius: 10px;
 }
 
 div.quote_post2 {
-  width: 98%;
-  margin: 5px 0;
-  padding: 10px 0;
+  margin: 5px auto;
+  width: 100%;
   display:table-cell;
   vertical-align:middle;
-  font-size: 18px;
-  line-height: 36px;
   text-align: left;
   color: #555555;
+}
+
+blockquote.quote_post
+{
+  font-size: 18px;
+  line-height: 36px;
+  margin: 10px;
 }
 
 div.text_post {
   float: left;
   position:relative;
   display:table;
-  width: 100%;
+  width: 95%;
   height: auto;
   min-height: 144px;
   margin: 10px auto;
+  padding: 10px 15px;
   background-color: #ffffff;
   color: #555555;
   border-radius: 10px;
 }
 
 div.text_post2 {
-  width: 98%;
-  margin: 5px 0;
-  padding: 10px 0;
+  margin: 5px auto;
+  padding 0 5px;
+  width: 100%;
   display:table-cell;
   vertical-align:middle;
   font-size: 18px;
@@ -88,8 +93,41 @@ div.text_post2 {
 }
 
 h1.text_post {
-  margin: 0;
+  margin: 10px 0;
   padding: 0;
+}
+
+div.link_post {
+  float: left;
+  position:relative;
+  display:table;
+  width: 95%;
+  height: auto;
+  min-height: 144px;
+  margin: 10px auto;
+  padding: 10px 15px;
+  background-color: #ffffff;
+  color: #555555;
+  border-radius: 10px;
+}
+
+div.link_post2 {
+  margin: 5px auto;
+  width: 100%;
+  display:table-cell;
+  vertical-align:middle;
+  font-size: 14px;
+  text-align: left;
+  color: #555555;
+}
+
+h1.link_post {
+  margin: 10px 0;
+  padding: 0;
+}
+
+a.link_post {
+  color: #151515;
 }
 
 img.post_avatar {

@@ -16,6 +16,10 @@ posts.forEach(
     {
       text_post(post);
     }
+    else if (post_type == "link")
+    {
+      link_post(post);
+    }
   }
 );
 )delimiter"

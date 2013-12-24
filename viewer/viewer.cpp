@@ -66,6 +66,8 @@ void viewer::initialize_dashboard()
         ,
     #include "viewer/dashboard/text_post.js.txt"
         ,
+    #include "viewer/dashboard/link_post.js.txt"
+        ,
     #include "viewer/dashboard/dashboard.js.txt"
         ,
         "document.getElementById(\"dashboard\").innerHTML = dashboard;"
