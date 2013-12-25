@@ -9,6 +9,7 @@
 #include <QDesktopServices>
 #include <QWebElement>
 #include <QWheelEvent>
+#include <QKeyEvent>
 #include "oauth/api/api.hpp"
 #include "oauth/errmsg.hpp"
 
@@ -26,9 +27,14 @@ public:
     void initialize_dashboard();
 
 private:
-    unsigned int page_num;
     void wheelEvent(QWheelEvent*);
     bool scroll_flag;
+
+    void keyPressEvent(QKeyEvent*);
+    bool keypress_flag;
+
+    unsigned int page_num;
+    QString post_type;
 
 private slots:
     void attachWindowObject();

@@ -3,7 +3,7 @@
 namespace subara {
 
 viewer::viewer(QWidget *parent)
-    : QWebView(parent), page_num(0), scroll_flag(false)
+    : QWebView(parent), scroll_flag(false), keypress_flag(false), page_num(0), post_type("None")
 {
     initialize();
 }
@@ -125,7 +125,7 @@ void viewer::initialize_dashboard()
 
     try
     {
-        dashboard_data = oauth::api::dashboard(config::api::limit);
+        dashboard_data = oauth::api::dashboard(config::api::limit, 0, post_type);
     }
     catch (const char* errmsg)
     {
@@ -177,7 +177,7 @@ void viewer::load_next_page()
 
     try
     {
-        dashboard_data = oauth::api::dashboard(config::api::limit, config::api::limit * (page_num - 1));
+        dashboard_data = oauth::api::dashboard(config::api::limit, config::api::limit * (page_num - 1), post_type);
     }
     catch (const char* errmsg)
     {
@@ -210,16 +210,39 @@ void viewer::load_next_page()
 
 void viewer::wheelEvent(QWheelEvent* event)
 {
+    // paging
     if (!scroll_flag)
     {
         scroll_flag = true;
         QWebView::wheelEvent(event);
+
         if (this->page()->mainFrame()->scrollPosition().y() == this->page()->mainFrame()->scrollBarMaximum(Qt::Vertical))
         {
             load_next_page();
         }
         scroll_flag = false;
     }
+}
+
+void viewer::keyPressEvent(QKeyEvent* event)
+{
+    // paging
+    if (!keypress_flag)
+    {
+        keypress_flag = true;
+        QWebView::keyPressEvent(event);
+
+        const auto key = event->key();
+        if (key == Qt::Key_Down || key == Qt::Key_PageDown || key == Qt::Key_Space)
+        {
+            if (this->page()->mainFrame()->scrollPosition().y() == this->page()->mainFrame()->scrollBarMaximum(Qt::Vertical))
+            {
+                load_next_page();
+            }
+        }
+        keypress_flag = false;
+    }
+    //qDebug() << event->key();
 }
 
 } // end namespace subara
