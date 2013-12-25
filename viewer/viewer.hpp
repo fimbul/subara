@@ -28,7 +28,8 @@ private slots:
     void attachWindowObject();
 
 public slots:
-    void video_show_on_tumblr(const QWebElement&, const QWebElement&);
+    void video_show_on_tumblr();
+    void video_show_on_tumblr_impl(const QWebElement&, const QWebElement&);
 };
 
 } // end namespace subara

@@ -26,31 +26,35 @@ void viewer::initialize()
 
 void viewer::attachWindowObject()
 {
-        this->page()->mainFrame()->addToJavaScriptWindowObject(QString("cppapi"), this);
+    this->page()->mainFrame()->addToJavaScriptWindowObject(QString("cppapi"), this);
 };
 
-void viewer::video_show_on_tumblr(const QWebElement& url_args, const QWebElement& position_args)
+void viewer::video_show_on_tumblr()
+{
+    this->page()->mainFrame()->evaluateJavaScript("video_post_pos();");
+    this->page()->mainFrame()->evaluateJavaScript("cppapi['video_show_on_tumblr_impl(const QWebElement&, const QWebElement&)'](document.getElementById('video_post_argument'), document.getElementById('video_post_poslist'))");
+}
+
+void viewer::video_show_on_tumblr_impl(const QWebElement& url_args, const QWebElement& position_args)
 {
     /* detect argument with the use of cursor and scroll position */
 
     QStyleOptionTitleBar so;
     so.titleBarState = 1;
 
-    const auto scroll_pos = QCursor::pos().ry()
-            + this->page()->mainFrame()->scrollPosition().y()
-            - this->style()->pixelMetric(QStyle::PM_TitleBarHeight, &so, this);
+    const auto click_pos = QCursor::pos().ry() - this->style()->pixelMetric(QStyle::PM_TitleBarHeight, &so, this);
 
     const auto urls = url_args.toPlainText().split("&");
     auto positions_s = position_args.toPlainText().split("&");
 
-    //qDebug() << scroll_pos << urls << positions_s;
-
     QVector<int> positions;
     for (auto& elem : positions_s)
         positions.push_back(elem.toInt());
-    positions.back() = scroll_pos + 1;
+    positions.pop_back();
 
-    const auto target = qLowerBound(positions.begin(), positions.end(), scroll_pos) - positions.begin() - 1;
+    qDebug() << click_pos << urls << positions;
+
+    const auto target = qLowerBound(positions.begin(), positions.end(), click_pos) - positions.begin() - 1;
 
     if (target < urls.size())
     {
@@ -117,8 +121,6 @@ void viewer::initialize_dashboard()
     #include "viewer/dashboard/dashboard.js.txt"
         ,
         "document.getElementById(\"dashboard\").innerHTML = dashboard;"
-        ,
-        "video_post_pos();"
     };
 
     for(auto& elem : initialize_dashboard_js)
