@@ -24,6 +24,10 @@ posts.forEach(
     {
       video_post(post);
     }
+    else if (post_type == "audio")
+    {
+      audio_post(post);
+    }
   }
 );
 )delimiter"

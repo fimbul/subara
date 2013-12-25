@@ -24,6 +24,7 @@ div.photo_post {
   position:relative;
   width: 95%;
   height: auto;
+  min-height: 150px;
   padding: 10px 15px;
   margin: 10px auto;
   background-color: #ffffff;
@@ -42,7 +43,7 @@ div.quote_post {
   display:table;
   width: 95%;
   height: auto;
-  min-height: 144px;
+  min-height: 150px;
   margin: 10px auto;
   padding: 10px 15px;
   background-color: #ffffff;
@@ -72,7 +73,7 @@ div.text_post {
   display:table;
   width: 95%;
   height: auto;
-  min-height: 144px;
+  min-height: 150px;
   margin: 10px auto;
   padding: 10px 15px;
   background-color: #ffffff;
@@ -103,7 +104,7 @@ div.link_post {
   display:table;
   width: 95%;
   height: auto;
-  min-height: 144px;
+  min-height: 150px;
   margin: 10px auto;
   padding: 10px 15px;
   background-color: #ffffff;
@@ -136,7 +137,7 @@ div.video_post {
   display:table;
   width: 95%;
   height: auto;
-  min-height: 144px;
+  min-height: 150px;
   margin: 10px auto;
   padding: 10px 15px;
   background-color: #ffffff;
@@ -164,6 +165,33 @@ img.post_avatar {
   border-radius: 10px;
 }
 
+div.audio_post {
+  float: left;
+  position:relative;
+  display:table;
+  width: 95%;
+  height: auto;
+  min-height: 150px;
+  margin: 10px auto;
+  padding: 10px 15px;
+  background-color: #ffffff;
+  color: #555555;
+  border-radius: 10px;
+}
+
+div.audio_post2 {
+  margin: 5px auto;
+  width: 100%;
+  display:table-cell;
+  vertical-align:middle;
+  text-align: left;
+  color: #555555;
+}
+
+a.audio_post2 {
+  color: #151515;
+}
+
 img.balloon {
   position: absolute;
   top: 24px;
@@ -171,7 +199,7 @@ img.balloon {
   width: 16px;
 }
 
-div#video_post_argument
+.argument
 {
   font-size: 1px;
   position: fixed;
@@ -179,11 +207,4 @@ div#video_post_argument
   left: 0px;
 }
 
-div#video_post_poslist
-{
-  font-size: 1px;
-  position: fixed;
-  top: -100px; // hide argument
-  left: 0px;
-}
 )delimiter"

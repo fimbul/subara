@@ -10,7 +10,12 @@ viewer::viewer(QWidget *parent)
 
 void viewer::initialize()
 {
-    QWebSettings::globalSettings()->setAttribute(QWebSettings::PluginsEnabled, true);
+    QWebSettings::globalSettings()->setAttribute(QWebSettings::PluginsEnabled,true);
+    QWebSettings::globalSettings()->setAttribute(QWebSettings::JavascriptCanOpenWindows,true);
+    QWebSettings::globalSettings()->setAttribute(QWebSettings::JavascriptCanCloseWindows,true);
+    QWebSettings::globalSettings()->setAttribute(QWebSettings::JavascriptCanAccessClipboard,true);
+    QWebSettings::globalSettings()->setAttribute(QWebSettings::LocalContentCanAccessRemoteUrls,true);
+
     this->settings()->setAttribute(QWebSettings::PluginsEnabled,true);
     this->settings()->setAttribute(QWebSettings::JavascriptCanOpenWindows,true);
     this->settings()->setAttribute(QWebSettings::JavascriptCanCloseWindows,true);
@@ -36,6 +41,39 @@ void viewer::video_show_on_tumblr()
 }
 
 void viewer::video_show_on_tumblr_impl(const QWebElement& url_args, const QWebElement& position_args)
+{
+    /* detect argument with the use of cursor and scroll position */
+
+    QStyleOptionTitleBar so;
+    so.titleBarState = 1;
+
+    const auto click_pos = QCursor::pos().ry() - this->style()->pixelMetric(QStyle::PM_TitleBarHeight, &so, this);
+
+    const auto urls = url_args.toPlainText().split("&");
+    auto positions_s = position_args.toPlainText().split("&");
+
+    QVector<int> positions;
+    for (auto& elem : positions_s)
+        positions.push_back(elem.toInt());
+    positions.pop_back();
+
+    qDebug() << click_pos << urls << positions;
+
+    const auto target = qLowerBound(positions.begin(), positions.end(), click_pos) - positions.begin() - 1;
+
+    if (target < urls.size())
+    {
+        QDesktopServices::openUrl(QUrl(urls.at(target)));
+    }
+};
+
+void viewer::audio_show_on_tumblr()
+{
+    this->page()->mainFrame()->evaluateJavaScript("audio_post_pos();");
+    this->page()->mainFrame()->evaluateJavaScript("cppapi['audio_show_on_tumblr_impl(const QWebElement&, const QWebElement&)'](document.getElementById('audio_post_argument'), document.getElementById('audio_post_poslist'))");
+}
+
+void viewer::audio_show_on_tumblr_impl(const QWebElement& url_args, const QWebElement& position_args)
 {
     /* detect argument with the use of cursor and scroll position */
 
@@ -105,7 +143,7 @@ void viewer::initialize_dashboard()
         return;
     }
 
-    QVector<QString> initialize_dashboard_js = {
+    QStringList initialize_dashboard_js = {
         "var dashboard = \"\";",
         "var posts = " + dashboard_data + ".response.posts;",
     #include "viewer/dashboard/photo_post.js.txt"
@@ -118,12 +156,14 @@ void viewer::initialize_dashboard()
         ,
     #include "viewer/dashboard/video_post.js.txt"
         ,
+    #include "viewer/dashboard/audio_post.js.txt"
+        ,
     #include "viewer/dashboard/dashboard.js.txt"
         ,
         "document.getElementById(\"dashboard\").innerHTML = dashboard;"
     };
 
-    for(auto& elem : initialize_dashboard_js)
+    for (auto& elem : initialize_dashboard_js)
     {
         this->page()->mainFrame()->evaluateJavaScript(elem);
     }

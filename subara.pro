@@ -38,4 +38,5 @@ OTHER_FILES += \
     viewer/dashboard/quote_post.js.txt \
     viewer/dashboard/text_post.js.txt \
     viewer/dashboard/link_post.js.txt \
-    viewer/dashboard/video_post.js.txt
+    viewer/dashboard/video_post.js.txt \
+    viewer/dashboard/audio_post.js.txt
