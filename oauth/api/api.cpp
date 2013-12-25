@@ -15,7 +15,7 @@ const QString& oauth_token_secret = subara::config::oauth_token_secret;
 
 QString dashboard(
         unsigned int limit,
-        unsigned int offset,
+        unsigned long long int offset,
         QString type,
         bool reblog_info,
         bool notes_info,

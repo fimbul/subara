@@ -29,7 +29,7 @@ extern const QString& oauth_token_secret;
 
 QString dashboard(
         unsigned int limit = 20,
-        unsigned int offset = 0,
+        unsigned long long int offset = 0,
         QString type = "None",
         bool reblog_info = false,
         bool notes_info = false,

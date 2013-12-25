@@ -3,7 +3,7 @@
 namespace subara {
 
 viewer::viewer(QWidget *parent)
-    : QWebView(parent), page_num(0)
+    : QWebView(parent), page_num(0), scroll_flag(false)
 {
     initialize();
 }
@@ -199,13 +199,26 @@ void viewer::load_next_page()
         "var posts = " + dashboard_data + ".response.posts;",
     #include "viewer/dashboard/dashboard.js.txt"
         ,
-        "dashboard += \"<div><a onclick=\\\"cppapi.load_next_page()\\\">More</a></div>\"",
         "document.getElementById(\"dashboard\").innerHTML = dashboard;"
     };
 
     for (auto& elem : initialize_dashboard_js)
     {
         this->page()->mainFrame()->evaluateJavaScript(elem);
+    }
+}
+
+void viewer::wheelEvent(QWheelEvent* event)
+{
+    if (!scroll_flag)
+    {
+        scroll_flag = true;
+        QWebView::wheelEvent(event);
+        if (this->page()->mainFrame()->scrollPosition().y() == this->page()->mainFrame()->scrollBarMaximum(Qt::Vertical))
+        {
+            load_next_page();
+        }
+        scroll_flag = false;
     }
 }
 

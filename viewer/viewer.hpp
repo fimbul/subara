@@ -8,6 +8,7 @@
 #include <QtAlgorithms>
 #include <QDesktopServices>
 #include <QWebElement>
+#include <QWheelEvent>
 #include "oauth/api/api.hpp"
 #include "oauth/errmsg.hpp"
 
@@ -26,6 +27,8 @@ public:
 
 private:
     unsigned int page_num;
+    void wheelEvent(QWheelEvent*);
+    bool scroll_flag;
 
 private slots:
     void attachWindowObject();
