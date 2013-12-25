@@ -27,7 +27,14 @@ extern const QString& oauth_secret_key;
 extern const QString& oauth_token;
 extern const QString& oauth_token_secret;
 
-QString dashboard();
+QString dashboard(
+        unsigned int limit = 20,
+        unsigned int offset = 0,
+        QString type = "None",
+        bool reblog_info = false,
+        bool notes_info = false,
+        int since_id = -1
+        );
 
 } // end namespace api
 

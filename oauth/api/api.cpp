@@ -13,7 +13,14 @@ const QString& oauth_secret_key = subara::config::oauth_secret_key;
 const QString& oauth_token = subara::config::oauth_token;
 const QString& oauth_token_secret = subara::config::oauth_token_secret;
 
-QString dashboard()
+QString dashboard(
+        unsigned int limit,
+        unsigned int offset,
+        QString type,
+        bool reblog_info,
+        bool notes_info,
+        int since_id
+        )
 {
     QString oauth_request_url = "";
     const QString oauth_api_url = "http://api.tumblr.com/v2/user/dashboard";
@@ -22,14 +29,31 @@ QString dashboard()
             + '&'
             + QString(QUrl::toPercentEncoding(oauth_token_secret));
     const QString oauth_timestamp = QString::number(std::chrono::seconds(std::time(0)).count());
+    const QString limit_s = QString::number(limit);
+    const QString offset_s = QString::number(offset);
+    const QString since_id_s = QString::number(since_id);
+    const QString reblog_info_s = QString::number(reblog_info);
+    const QString notes_info_s = QString::number(notes_info);
 
     QStringList oauth_signature_base_string_list;
-    oauth_signature_base_string_list << ("oauth_consumer_key=" + oauth_consumer_key)
+    oauth_signature_base_string_list << ("limit=" + limit_s)
+                                     << ("notest_info=" + notes_info_s)
+                                     << ("oauth_consumer_key=" + oauth_consumer_key)
                                      << ("oauth_nonce=" + oauth_nonce)
                                      << ("oauth_signature_method=" + oauth_signature_method)
                                      << ("oauth_timestamp=" + oauth_timestamp)
                                      << ("oauth_token=" + oauth_token)
-                                     << ("oauth_version=" + oauth_version);
+                                     << ("oauth_version=" + oauth_version)
+                                     << ("offset=" + offset_s)
+                                     << ("reblog_info=" + reblog_info_s);
+    if(since_id > 0)
+    {
+        oauth_signature_base_string_list << ("since_id=" + since_id_s);
+    }
+    if(type != "None")
+    {
+        oauth_signature_base_string_list << ("type=" + type);
+    }
 
     const QString oauth_signature_base_string = "GET&"
             + QUrl::toPercentEncoding(oauth_api_url) + "&"
@@ -43,13 +67,25 @@ QString dashboard()
                 );
 
     QStringList oauth_request_url_list;
-    oauth_request_url_list << ("oauth_consumer_key=" + oauth_consumer_key)
+    oauth_request_url_list << ("limit=" + limit_s)
+                           << ("notest_info=" + notes_info_s)
+                           << ("oauth_consumer_key=" + oauth_consumer_key)
                            << ("oauth_nonce=" + oauth_nonce)
                            << ("oauth_signature_method=" + oauth_signature_method)
                            << ("oauth_signature=" + oauth_signature)
                            << ("oauth_timestamp=" + oauth_timestamp)
                            << ("oauth_token=" + oauth_token)
-                           << ("oauth_version=" + oauth_version);
+                           << ("oauth_version=" + oauth_version)
+                           << ("offset=" + offset_s)
+                           << ("reblog_info=" + reblog_info_s);
+    if(since_id > 0)
+    {
+        oauth_request_url_list << ("since_id=" + since_id_s);
+    }
+    if(type != "None")
+    {
+        oauth_request_url_list << ("type=" + type);
+    }
 
     oauth_request_url = oauth_api_url + "?" + oauth_request_url_list.join("&");
     //qDebug() << oauth_request_url;

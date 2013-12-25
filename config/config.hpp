@@ -14,6 +14,10 @@ extern bool is_authorized;
 extern QString oauth_token;
 extern QString oauth_token_secret;
 
+namespace api {
+  extern unsigned int limit;
+}
+
 void reset();
 
 } // end namespace config

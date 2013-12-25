@@ -3,7 +3,7 @@
 namespace subara {
 
 viewer::viewer(QWidget *parent)
-    : QWebView(parent)
+    : QWebView(parent), page_num(0)
 {
     initialize();
 }
@@ -125,7 +125,7 @@ void viewer::initialize_dashboard()
 
     try
     {
-        dashboard_data = oauth::api::dashboard();
+        dashboard_data = oauth::api::dashboard(config::api::limit);
     }
     catch (const char* errmsg)
     {
@@ -159,9 +159,47 @@ void viewer::initialize_dashboard()
     #include "viewer/dashboard/audio_post.js.txt"
         ,
     #include "viewer/dashboard/chat_post.js.txt"
-        ,
+    };
+
+    for (auto& elem : initialize_dashboard_js)
+    {
+        this->page()->mainFrame()->evaluateJavaScript(elem);
+    }
+
+    load_next_page();
+}
+
+void viewer::load_next_page()
+{
+    ++page_num;
+
+    QString dashboard_data = "";
+
+    try
+    {
+        dashboard_data = oauth::api::dashboard(config::api::limit, config::api::limit * (page_num - 1));
+    }
+    catch (const char* errmsg)
+    {
+        oauth::err_msg_alert(errmsg);
+        return;
+    }
+    catch (const QString& errmsg)
+    {
+        oauth::err_msg_alert(errmsg);
+        return;
+    }
+    catch (...)
+    {
+        oauth::err_msg_alert("Error: getting dashboard failed");
+        return;
+    }
+
+    QStringList initialize_dashboard_js = {
+        "var posts = " + dashboard_data + ".response.posts;",
     #include "viewer/dashboard/dashboard.js.txt"
         ,
+        "dashboard += \"<div><a onclick=\\\"cppapi.load_next_page()\\\">More</a></div>\"",
         "document.getElementById(\"dashboard\").innerHTML = dashboard;"
     };
 

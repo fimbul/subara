@@ -24,10 +24,14 @@ public:
     void initialize_layout();
     void initialize_dashboard();
 
+private:
+    unsigned int page_num;
+
 private slots:
     void attachWindowObject();
 
 public slots:
+    void load_next_page();
     void video_show_on_tumblr();
     void video_show_on_tumblr_impl(const QWebElement&, const QWebElement&);
     void audio_show_on_tumblr();
