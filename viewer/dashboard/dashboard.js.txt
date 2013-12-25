@@ -28,6 +28,10 @@ posts.forEach(
     {
       audio_post(post);
     }
+    else if (post_type == "chat")
+    {
+      chat_post(post);
+    }
   }
 );
 )delimiter"

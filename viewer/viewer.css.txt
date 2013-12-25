@@ -192,6 +192,32 @@ a.audio_post2 {
   color: #151515;
 }
 
+div.chat_post {
+  float: left;
+  position:relative;
+  display:table;
+  width: 95%;
+  height: auto;
+  min-height: 150px;
+  margin: 10px auto;
+  padding: 10px 15px;
+  background-color: #ffffff;
+  color: #555555;
+  border-radius: 10px;
+}
+
+div.chat_post2 {
+  margin: 5px auto;
+  padding 0 5px;
+  width: 100%;
+  display:table-cell;
+  vertical-align:middle;
+  font-size: 18px;
+  line-height: 36px;
+  text-align: left;
+  color: #555555;
+}
+
 img.balloon {
   position: absolute;
   top: 24px;
