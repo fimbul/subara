@@ -20,6 +20,10 @@ posts.forEach(
     {
       link_post(post);
     }
+    else if (post_type == "video")
+    {
+      video_post(post);
+    }
   }
 );
 )delimiter"

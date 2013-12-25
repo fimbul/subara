@@ -130,6 +130,33 @@ a.link_post {
   color: #151515;
 }
 
+div.video_post {
+  float: left;
+  position:relative;
+  display:table;
+  width: 95%;
+  height: auto;
+  min-height: 144px;
+  margin: 10px auto;
+  padding: 10px 15px;
+  background-color: #ffffff;
+  color: #555555;
+  border-radius: 10px;
+}
+
+div.video_post2 {
+  margin: 5px auto;
+  width: 100%;
+  display:table-cell;
+  vertical-align:middle;
+  text-align: left;
+  color: #555555;
+}
+
+a.video_post2 {
+  color: #151515;
+}
+
 img.post_avatar {
   position: absolute;
   top: 0px;
@@ -144,4 +171,19 @@ img.balloon {
   width: 16px;
 }
 
+div#video_post_argument
+{
+  font-size: 1px;
+  position: fixed;
+  top: -100px; // hide argument
+  left: 0px;
+}
+
+div#video_post_poslist
+{
+  font-size: 1px;
+  position: fixed;
+  top: -100px; // hide argument
+  left: 0px;
+}
 )delimiter"

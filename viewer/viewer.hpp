@@ -3,6 +3,11 @@
 
 #include <QWebView>
 #include <QWebFrame>
+#include <QStyleOptionTitleBar>
+#include <QStyle>
+#include <QtAlgorithms>
+#include <QDesktopServices>
+#include <QWebElement>
 #include "oauth/api/api.hpp"
 #include "oauth/errmsg.hpp"
 
@@ -15,10 +20,15 @@ class viewer : public QWebView
 public:
     viewer(QWidget *parent = 0);
 
-private:
     void initialize();
     void initialize_layout();
     void initialize_dashboard();
+
+private slots:
+    void attachWindowObject();
+
+public slots:
+    void video_show_on_tumblr(const QWebElement&, const QWebElement&);
 };
 
 } // end namespace subara

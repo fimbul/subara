@@ -10,6 +10,8 @@ R"delimiter(
 <body>
   <div id="dashboard">
   </div>
+  <div id="video_post_argument"></div>
+  <div id="video_post_poslist"></div>
 </body>
 </html>
 )delimiter"

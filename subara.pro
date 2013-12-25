@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT += core gui webkitwidgets
+QT += core gui webkitwidgets network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -37,4 +37,5 @@ OTHER_FILES += \
     viewer/dashboard/dashboard.js.txt \
     viewer/dashboard/quote_post.js.txt \
     viewer/dashboard/text_post.js.txt \
-    viewer/dashboard/link_post.js.txt
+    viewer/dashboard/link_post.js.txt \
+    viewer/dashboard/video_post.js.txt
