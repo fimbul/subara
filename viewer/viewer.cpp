@@ -144,7 +144,7 @@ void viewer::initialize_dashboard()
     }
 
     QStringList initialize_dashboard_js = {
-        "var dashboard = \"\";",
+        "var post_data = \"\";",
         "var posts = " + dashboard_data + ".response.posts;",
     #include "viewer/dashboard/photo_post.js.txt"
         ,
@@ -196,10 +196,16 @@ void viewer::load_next_page()
     }
 
     QStringList initialize_dashboard_js = {
+        "var post_data = \"\";",
         "var posts = " + dashboard_data + ".response.posts;",
     #include "viewer/dashboard/dashboard.js.txt"
         ,
-        "document.getElementById(\"dashboard\").innerHTML = dashboard;"
+        "var page_data = document.createElement('div');",
+        "page_data.id = \"page",
+        QString::number(page_num),
+        "\";",
+        "page_data.innerHTML = post_data;",
+        "document.getElementById(\"dashboard\").appendChild(page_data);"
     };
 
     for (auto& elem : initialize_dashboard_js)
