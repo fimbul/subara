@@ -175,7 +175,7 @@ void viewer::reblog_impl(const QWebElement& post_id_args, const QWebElement& reb
             qDebug() << "reblog status : " << result;
 
             ++retry;
-        } while(!result && retry < 24);
+        } while(!result && retry < 36);
 
         if(!result)
         {
