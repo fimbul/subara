@@ -11,6 +11,7 @@
 #include <QNetworkRequest>
 #include <QNetworkReply>
 #include <QUrl>
+#include <QUrlQuery>
 #include <chrono>
 #include "config/config.hpp"
 
@@ -35,6 +36,10 @@ QString dashboard(
         bool notes_info = false,
         int since_id = -1
         );
+
+QString info();
+
+bool reblog(const QString& base_hostname, const QString& reblog_key);
 
 } // end namespace api
 

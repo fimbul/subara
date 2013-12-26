@@ -10,6 +10,9 @@ R"delimiter(
 <body>
   <div id="dashboard">
   </div>
+  <div id="base_hostname" class="argument"></div>
+  <div id="reblog_key" class="argument"></div>
+  <div id="post_poslist" class="argument"></div>
   <div id="video_post_argument" class="argument"></div>
   <div id="video_post_poslist" class="argument"></div>
   <div id="audio_post_argument" class="argument"></div>

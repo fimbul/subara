@@ -24,23 +24,27 @@ public:
 
     void initialize();
     void initialize_layout();
+    void initialize_base_hostname();
     void initialize_dashboard();
 
 private:
     void wheelEvent(QWheelEvent*);
-    bool scroll_flag;
-
     void keyPressEvent(QKeyEvent*);
-    bool keypress_flag;
 
+    bool loading_flag;
     unsigned int page_num;
     QString post_type;
+    QString user_info;
+    QString base_hostname;
 
 private slots:
     void attachWindowObject();
 
 public slots:
+    void get_base_hostname(const QWebElement&);
     void load_next_page();
+    void reblog();
+    void reblog_impl(const QWebElement&, const QWebElement&);
     void video_show_on_tumblr();
     void video_show_on_tumblr_impl(const QWebElement&, const QWebElement&);
     void audio_show_on_tumblr();

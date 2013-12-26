@@ -20,7 +20,6 @@ static void initialize_value(const char* name, T& target)
     settings.setIniCodec("UTF-8");
 
     static QVariant setting_v;
-
     setting_v = settings.value(name);
     if (setting_v.type() != QVariant::Invalid && setting_v.canConvert<T>())
     {

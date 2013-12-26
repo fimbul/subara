@@ -1,20 +1,14 @@
 R"delimiter(
 function audio_post(post)
 {
+  document.getElementById('reblog_key').innerHTML += post.reblog_key + '&';
   document.getElementById('audio_post_argument').innerHTML += post.post_url + '&';
-  post_data += "<div class=\"audio_post\">"
+
+  post_data += "<div class=\"post audio_post\">"
   + "<img class=\"post_avatar\" alt=\"avatar\" src=\"http:/api.tumblr.com/v2/blog/" + post.post_url.split(/(http:\/\/|\/post)/)[2] + "/avatar\/64\" />"
   + "<img alt=\"<\" class=\"balloon\" src=\"data:image/gif;base64,R0lGODlhGAAYAIAAAP///////yH5BAEAAAEALAAAAAAYABgAAAIujI+py+0Po5RgKoDtwVzzP31iJJZPiTboyqys6oJnXJGu9eKjZsh8X/sJh0RIAQA7\" /><div class=\"audio_post2\">"
   + post.player + post.caption
   + "<br /><a class=\"video_post2\" onclick=\"cppapi.audio_show_on_tumblr()\">show on tumblr</a>"
   + "</div></div>";
-}
-
-function audio_post_pos()
-{
-  document.getElementById('audio_post_poslist').innerHTML = "";
-  Array.prototype.forEach.call(document.getElementsByClassName("audio_post"), function(node) {
-    document.getElementById('audio_post_poslist').innerHTML += node.getBoundingClientRect().top + '&';
-  });
 }
 )delimiter"

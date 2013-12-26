@@ -3,7 +3,7 @@
 namespace subara {
 
 viewer::viewer(QWidget *parent)
-    : QWebView(parent), scroll_flag(false), keypress_flag(false), page_num(0), post_type("None")
+    : QWebView(parent), loading_flag(false), page_num(0), post_type("None"), user_info(""), base_hostname("")
 {
     initialize();
 }
@@ -25,14 +25,49 @@ void viewer::initialize()
     attachWindowObject();
     QObject::connect(this->page()->mainFrame(), SIGNAL(javaScriptWindowObjectCleared()), this, SLOT(attachWindowObject()));
 
+    try
+    {
+        user_info = oauth::api::info();
+    }
+    catch (const char* errmsg)
+    {
+        oauth::err_msg_alert(errmsg);
+        return;
+    }
+    catch (const QString& errmsg)
+    {
+        oauth::err_msg_alert(errmsg);
+        return;
+    }
+    catch (...)
+    {
+        oauth::err_msg_alert("Error: getting dashboard failed");
+        return;
+    }
+
+    //qDebug() << user_info;
     initialize_layout();
+    initialize_base_hostname();
     initialize_dashboard();
+}
+
+void viewer::initialize_base_hostname()
+{
+    this->page()->mainFrame()->evaluateJavaScript("var user_info = " + user_info + ";");
+    this->page()->mainFrame()->evaluateJavaScript("document.getElementById(\"base_hostname\").innerHTML = user_info.response.user.blogs[0].url;");
+    this->page()->mainFrame()->evaluateJavaScript("cppapi['get_base_hostname(const QWebElement&)'](document.getElementById('base_hostname'));");
+}
+
+void viewer::get_base_hostname(const QWebElement& arg)
+{
+    base_hostname = arg.toPlainText().remove(QRegExp("(http://|/)"));
+    //qDebug() << arg.toPlainText();
 }
 
 void viewer::attachWindowObject()
 {
     this->page()->mainFrame()->addToJavaScriptWindowObject(QString("cppapi"), this);
-};
+}
 
 void viewer::video_show_on_tumblr()
 {
@@ -57,7 +92,7 @@ void viewer::video_show_on_tumblr_impl(const QWebElement& url_args, const QWebEl
         positions.push_back(elem.toInt());
     positions.pop_back();
 
-    qDebug() << click_pos << urls << positions;
+    //qDebug() << click_pos << urls << positions;
 
     const auto target = qLowerBound(positions.begin(), positions.end(), click_pos) - positions.begin() - 1;
 
@@ -90,7 +125,7 @@ void viewer::audio_show_on_tumblr_impl(const QWebElement& url_args, const QWebEl
         positions.push_back(elem.toInt());
     positions.pop_back();
 
-    qDebug() << click_pos << urls << positions;
+    //qDebug() << click_pos << urls << positions;
 
     const auto target = qLowerBound(positions.begin(), positions.end(), click_pos) - positions.begin() - 1;
 
@@ -99,6 +134,41 @@ void viewer::audio_show_on_tumblr_impl(const QWebElement& url_args, const QWebEl
         QDesktopServices::openUrl(QUrl(urls.at(target)));
     }
 };
+
+void viewer::reblog()
+{
+    this->page()->mainFrame()->evaluateJavaScript("post_pos();");
+    this->page()->mainFrame()->evaluateJavaScript("cppapi['reblog_impl(const QWebElement&, const QWebElement&)'](document.getElementById('reblog_key'), document.getElementById('post_poslist'))");
+}
+
+void viewer::reblog_impl(const QWebElement& reblog_key_args, const QWebElement& position_args)
+{
+    /* detect argument with the use of cursor and scroll position */
+
+    QStyleOptionTitleBar so;
+    so.titleBarState = 1;
+
+    const auto click_pos = QCursor::pos().ry() - this->style()->pixelMetric(QStyle::PM_TitleBarHeight, &so, this);
+
+    const auto reblog_keys = reblog_key_args.toPlainText().split("&");
+    auto positions_s = position_args.toPlainText().split("&");
+
+    QVector<int> positions;
+    for (auto& elem : positions_s)
+        positions.push_back(elem.toInt());
+    positions.pop_back();
+
+    //qDebug() << click_pos << urls << positions;
+
+    const auto target = qLowerBound(positions.begin(), positions.end(), click_pos) - positions.begin() - 1;
+
+    if (target < reblog_keys.size())
+    {
+        QString reblog_key = reblog_keys.at(target);
+        //qDebug() << base_hostname << reblog_key;
+        qDebug() << oauth::api::reblog(base_hostname, reblog_key);
+    }
+}
 
 void viewer::initialize_layout()
 {
@@ -159,6 +229,8 @@ void viewer::initialize_dashboard()
     #include "viewer/dashboard/audio_post.js.txt"
         ,
     #include "viewer/dashboard/chat_post.js.txt"
+        ,
+    #include "viewer/dashboard/post_pos.js.txt"
     };
 
     for (auto& elem : initialize_dashboard_js)
@@ -216,28 +288,26 @@ void viewer::load_next_page()
 
 void viewer::wheelEvent(QWheelEvent* event)
 {
-    // paging
-    if (!scroll_flag)
-    {
-        scroll_flag = true;
-        QWebView::wheelEvent(event);
+    QWebView::wheelEvent(event);
 
+    if (!loading_flag)
+    {
+        loading_flag = true;
         if (this->page()->mainFrame()->scrollPosition().y() == this->page()->mainFrame()->scrollBarMaximum(Qt::Vertical))
         {
             load_next_page();
         }
-        scroll_flag = false;
+        loading_flag = false;
     }
 }
 
 void viewer::keyPressEvent(QKeyEvent* event)
 {
-    // paging
-    if (!keypress_flag)
-    {
-        keypress_flag = true;
-        QWebView::keyPressEvent(event);
+    QWebView::keyPressEvent(event);
 
+    if (!loading_flag)
+    {
+        loading_flag = true;
         const auto key = event->key();
         if (key == Qt::Key_Down || key == Qt::Key_PageDown || key == Qt::Key_Space)
         {
@@ -246,9 +316,8 @@ void viewer::keyPressEvent(QKeyEvent* event)
                 load_next_page();
             }
         }
-        keypress_flag = false;
+        loading_flag = false;
     }
-    //qDebug() << event->key();
 }
 
 } // end namespace subara

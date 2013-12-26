@@ -1,7 +1,9 @@
 R"delimiter(
 function quote_post(post)
 {
-  post_data += "<div class=\"quote_post\">"
+  document.getElementById('reblog_key').innerHTML += post.reblog_key + '&';
+
+  post_data += "<div class=\"post quote_post\">"
   + "<img class=\"post_avatar\" alt=\"avatar\" src=\"http:/api.tumblr.com/v2/blog/" + post.post_url.split(/(http:\/\/|\/post)/)[2] + "/avatar\/64\" />"
   + "<img alt=\"<\" class=\"balloon\" src=\"data:image/gif;base64,R0lGODlhGAAYAIAAAP///////yH5BAEAAAEALAAAAAAYABgAAAIujI+py+0Po5RgKoDtwVzzP31iJJZPiTboyqys6oJnXJGu9eKjZsh8X/sJh0RIAQA7\" /><div class=\"quote_post2\"><blockquote class=\"quote_post\">“"
   + post.text

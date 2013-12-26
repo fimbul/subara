@@ -225,9 +225,9 @@ img.balloon {
   width: 16px;
 }
 
-.argument
-{
+.argument {
   font-size: 1px;
+  color: #151515;
   position: fixed;
   top: -100px; // hide argument
   left: 0px;

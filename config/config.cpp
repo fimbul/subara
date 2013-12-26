@@ -18,6 +18,7 @@ unsigned int limit = 20;
 void reset()
 {
     QSettings settings("settings.ini", QSettings::IniFormat);
+    settings.setIniCodec("UTF-8");
     settings.clear();
 }
 

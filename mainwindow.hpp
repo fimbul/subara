@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <QWebView>
 #include <QWebFrame>
+#include <QCloseEvent>
+#include <QSettings>
 #include "viewer/viewer.hpp"
 
 namespace subara {
