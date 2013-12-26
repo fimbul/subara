@@ -8,6 +8,6 @@ function quote_post(post)
   + "<img class=\"post_avatar\" alt=\"avatar\" src=\"http:/api.tumblr.com/v2/blog/" + post.post_url.split(/(http:\/\/|\/post)/)[2] + "/avatar\/64\" />"
   + "<img alt=\"<\" class=\"balloon\" src=\"data:image/gif;base64,R0lGODlhGAAYAIAAAP///////yH5BAEAAAEALAAAAAAYABgAAAIujI+py+0Po5RgKoDtwVzzP31iJJZPiTboyqys6oJnXJGu9eKjZsh8X/sJh0RIAQA7\" /><div class=\"quote_post2\"><blockquote class=\"quote_post\">“"
   + post.text
-  + "”</blockquote></div></div>";
+  + "”</blockquote><br /><a onclick=\"cppapi.reblog()\">reblog</a></div></div>";
 }
 )delimiter"

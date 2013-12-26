@@ -227,23 +227,23 @@ bool reblog(const QString& base_hostname, const QString& reblog_key, const QStri
 
     QNetworkRequest request(oauth_request_url);
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
-    request.setRawHeader(QString("Authorization").toUtf8(), authorization_header.toLatin1());
+    request.setRawHeader(QString("Authorization").toUtf8(), authorization_header.toUtf8());
 
-    QNetworkReply* oauth_request_reply = oauth_network_manager.post(request, (("id=" + id) + ("&reblog_key=" + reblog_key)).toLatin1());
+    QNetworkReply* oauth_request_reply = oauth_network_manager.post(request, (("id=" + id) + ("&reblog_key=" + reblog_key)).toUtf8());
     oauth_request_event_loop.exec();
 
     if (oauth_request_reply->error() == QNetworkReply::NoError)
     {
         const QString oauth_request_reply_string = oauth_request_reply->readAll();
-        qDebug() << oauth_request_reply_string;
+        //qDebug() << oauth_request_reply_string;
         return true;
     }
     else
     {
         const QString oauth_request_reply_string = oauth_request_reply->readAll();
-        qDebug() << oauth_request_reply_string;
+        //qDebug() << oauth_request_reply_string;
         const QString oauth_error_msg = oauth_request_reply->errorString();
-        qDebug() << oauth_error_msg;
+        //qDebug() << oauth_error_msg;
         return false;
     }
 }

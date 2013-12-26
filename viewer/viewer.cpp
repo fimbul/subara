@@ -167,7 +167,20 @@ void viewer::reblog_impl(const QWebElement& post_id_args, const QWebElement& reb
         QString reblog_key = reblog_keys.at(target);
         QString post_id = post_ids.at(target);
         //qDebug() << base_hostname << post_id << reblog_key;
-        qDebug() << oauth::api::reblog(base_hostname, reblog_key, post_id);
+        auto retry = 0;
+        bool result = false;
+        do
+        {
+            result = oauth::api::reblog(base_hostname, reblog_key, post_id);
+            qDebug() << "reblog status : " << result;
+
+            ++retry;
+        } while(!result && retry < 24);
+
+        if(!result)
+        {
+            oauth::err_msg_alert("Error : reblog failed");
+        }
     }
 }
 

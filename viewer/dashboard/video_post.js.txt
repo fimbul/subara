@@ -10,6 +10,6 @@ function video_post(post)
   + "<img alt=\"<\" class=\"balloon\" src=\"data:image/gif;base64,R0lGODlhGAAYAIAAAP///////yH5BAEAAAEALAAAAAAYABgAAAIujI+py+0Po5RgKoDtwVzzP31iJJZPiTboyqys6oJnXJGu9eKjZsh8X/sJh0RIAQA7\" /><div class=\"video_post2\">"
   + post.player[0].embed_code + post.caption
   + "<br /><a class=\"video_post2\" onclick=\"cppapi.video_show_on_tumblr()\">show on tumblr</a>"
-  + "</div></div>";
+  + "<br /><a onclick=\"cppapi.reblog()\">reblog</a></div></div>";
 }
 )delimiter"
