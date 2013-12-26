@@ -1,6 +1,7 @@
 R"delimiter(
 function photo_post(post)
 {
+  document.getElementById('post_id').innerHTML += post.id + '&';
   document.getElementById('reblog_key').innerHTML += post.reblog_key + '&';
 
   post_data += "<div class=\"post photo_post\">"

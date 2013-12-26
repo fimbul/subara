@@ -39,7 +39,7 @@ QString dashboard(
 
 QString info();
 
-bool reblog(const QString& base_hostname, const QString& reblog_key);
+bool reblog(const QString&, const QString&, const QString&);
 
 } // end namespace api
 

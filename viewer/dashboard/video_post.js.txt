@@ -1,6 +1,7 @@
 R"delimiter(
 function video_post(post)
 {
+  document.getElementById('post_id').innerHTML += post.id + '&';
   document.getElementById('reblog_key').innerHTML += post.reblog_key + '&';
   document.getElementById('video_post_argument').innerHTML += post.post_url + '&';
 

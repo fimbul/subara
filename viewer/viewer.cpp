@@ -138,18 +138,18 @@ void viewer::audio_show_on_tumblr_impl(const QWebElement& url_args, const QWebEl
 void viewer::reblog()
 {
     this->page()->mainFrame()->evaluateJavaScript("post_pos();");
-    this->page()->mainFrame()->evaluateJavaScript("cppapi['reblog_impl(const QWebElement&, const QWebElement&)'](document.getElementById('reblog_key'), document.getElementById('post_poslist'))");
+    this->page()->mainFrame()->evaluateJavaScript("cppapi['reblog_impl(const QWebElement&, const QWebElement&, const QWebElement&)'](document.getElementById('post_id'), document.getElementById('reblog_key'), document.getElementById('post_poslist'))");
 }
 
-void viewer::reblog_impl(const QWebElement& reblog_key_args, const QWebElement& position_args)
+void viewer::reblog_impl(const QWebElement& post_id_args, const QWebElement& reblog_key_args, const QWebElement& position_args)
 {
     /* detect argument with the use of cursor and scroll position */
-
     QStyleOptionTitleBar so;
     so.titleBarState = 1;
 
     const auto click_pos = QCursor::pos().ry() - this->style()->pixelMetric(QStyle::PM_TitleBarHeight, &so, this);
 
+    const auto post_ids = post_id_args.toPlainText().split("&");
     const auto reblog_keys = reblog_key_args.toPlainText().split("&");
     auto positions_s = position_args.toPlainText().split("&");
 
@@ -165,8 +165,9 @@ void viewer::reblog_impl(const QWebElement& reblog_key_args, const QWebElement& 
     if (target < reblog_keys.size())
     {
         QString reblog_key = reblog_keys.at(target);
-        //qDebug() << base_hostname << reblog_key;
-        qDebug() << oauth::api::reblog(base_hostname, reblog_key);
+        QString post_id = post_ids.at(target);
+        //qDebug() << base_hostname << post_id << reblog_key;
+        qDebug() << oauth::api::reblog(base_hostname, reblog_key, post_id);
     }
 }
 

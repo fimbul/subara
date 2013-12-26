@@ -1,6 +1,7 @@
 R"delimiter(
 function chat_post(post)
 {
+  document.getElementById('post_id').innerHTML += post.id + '&';
   document.getElementById('reblog_key').innerHTML += post.reblog_key + '&';
 
   var title = post.title;

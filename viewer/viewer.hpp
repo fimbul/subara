@@ -44,7 +44,7 @@ public slots:
     void get_base_hostname(const QWebElement&);
     void load_next_page();
     void reblog();
-    void reblog_impl(const QWebElement&, const QWebElement&);
+    void reblog_impl(const QWebElement&, const QWebElement&, const QWebElement&);
     void video_show_on_tumblr();
     void video_show_on_tumblr_impl(const QWebElement&, const QWebElement&);
     void audio_show_on_tumblr();
