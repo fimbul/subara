@@ -45,6 +45,8 @@ public slots:
     void load_next_page();
     void reblog();
     void reblog_impl(const QWebElement&, const QWebElement&, const QWebElement&);
+    void like();
+    void like_impl(const QWebElement&, const QWebElement&, const QWebElement&);
     void video_show_on_tumblr();
     void video_show_on_tumblr_impl(const QWebElement&, const QWebElement&);
     void audio_show_on_tumblr();

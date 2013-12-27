@@ -40,6 +40,7 @@ QString dashboard(
 QString info();
 
 bool reblog(const QString&, const QString&, const QString&);
+bool like(const QString&, const QString&);
 
 } // end namespace api
 

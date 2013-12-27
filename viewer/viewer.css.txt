@@ -229,6 +229,15 @@ img.reblog {
   border-radius: 10px;
 }
 
+img.like {
+  width: 32px;
+  height 32px;
+  position: absolute;
+  bottom: 42px;
+  left: -52px;
+  border-radius: 10px;
+}
+
 img.balloon {
   position: absolute;
   top: 24px;

@@ -184,6 +184,55 @@ void viewer::reblog_impl(const QWebElement& post_id_args, const QWebElement& reb
     }
 }
 
+void viewer::like()
+{
+    this->page()->mainFrame()->evaluateJavaScript("post_pos();");
+    this->page()->mainFrame()->evaluateJavaScript("cppapi['like_impl(const QWebElement&, const QWebElement&, const QWebElement&)'](document.getElementById('post_id'), document.getElementById('reblog_key'), document.getElementById('post_poslist'))");
+}
+
+void viewer::like_impl(const QWebElement& post_id_args, const QWebElement& reblog_key_args, const QWebElement& position_args)
+{
+    /* detect argument with the use of cursor and scroll position */
+    QStyleOptionTitleBar so;
+    so.titleBarState = 1;
+
+    const auto click_pos = QCursor::pos().ry() - this->style()->pixelMetric(QStyle::PM_TitleBarHeight, &so, this);
+
+    const auto post_ids = post_id_args.toPlainText().split("&");
+    const auto reblog_keys = reblog_key_args.toPlainText().split("&");
+    auto positions_s = position_args.toPlainText().split("&");
+
+    QVector<int> positions;
+    for (auto& elem : positions_s)
+        positions.push_back(elem.toInt());
+    positions.pop_back();
+
+    //qDebug() << click_pos << urls << positions;
+
+    const auto target = qLowerBound(positions.begin(), positions.end(), click_pos) - positions.begin() - 1;
+
+    if (target < reblog_keys.size())
+    {
+        QString reblog_key = reblog_keys.at(target);
+        QString post_id = post_ids.at(target);
+        //qDebug() << base_hostname << post_id << reblog_key;
+        auto retry = 0;
+        bool result = false;
+        do
+        {
+            result = oauth::api::like(reblog_key, post_id);
+            qDebug() << "like status : " << result;
+
+            ++retry;
+        } while(!result && retry < 36);
+
+        if(!result)
+        {
+            oauth::err_msg_alert("Error : reblog failed");
+        }
+    }
+}
+
 void viewer::initialize_layout()
 {
     this->setHtml(
