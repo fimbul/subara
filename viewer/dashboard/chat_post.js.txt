@@ -9,8 +9,8 @@ function chat_post(post)
 
   post_data += "<div class=\"post chat_post\">"
   + "<img class=\"post_avatar\" alt=\"avatar\" src=\"http:/api.tumblr.com/v2/blog/" + post.post_url.split(/(http:\/\/|\/post)/)[2] + "/avatar\/128\" />"
-  + "<img alt=\"<\" class=\"balloon\" src=\"data:image/gif;base64,R0lGODlhGAAYAIAAAP///////yH5BAEAAAEALAAAAAAYABgAAAIujI+py+0Po5RgKoDtwVzzP31iJJZPiTboyqys6oJnXJGu9eKjZsh8X/sJh0RIAQA7\" /><div class=\"chat_post2\">"
+  + "<img alt=\"<\" class=\"balloon\" src=\"data:image/gif;base64,R0lGODlhGAAYAIAAAP///////yH5BAEAAAEALAAAAAAYABgAAAIujI+py+0Po5RgKoDtwVzzP31iJJZPiTboyqys6oJnXJGu9eKjZsh8X/sJh0RIAQA7\" /><a onclick=\"cppapi.reblog()\"><img class=\"reblog\" alt=\"R\" src=\"data:image/gif;base64,R0lGODlhIAAgAIABACBAIP///ywAAAAAIAAgAAACQ4yPqcvtD6OctNrLgN68d+iFISiWGtZsaHauiuomcHzMaUsCuWSzetRbBH07Wg1nHK6UKCbGZMpBPdIpx4jNardcbAEAOw==\" /></a><div class=\"chat_post2\">"
   + (title ? ("<h1 class=\"text_post\">" + title + "</h1>" + body) : body)
-  + <a onclick=\"cppapi.reblog()\"><img class=\"reblog\" alt=\"R\" src=\"data:image/gif;base64,R0lGODlhIAAgAIABACBAIP///ywAAAAAIAAgAAACQ4yPqcvtD6OctNrLgN68d+iFISiWGtZsaHauiuomcHzMaUsCuWSzetRbBH07Wg1nHK6UKCbGZMpBPdIpx4jNardcbAEAOw==\" /></a></div></div>";
+  + "</div></div>";
 }
 )delimiter"

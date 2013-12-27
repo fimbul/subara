@@ -221,6 +221,8 @@ img.post_avatar {
 }
 
 img.reblog {
+  width: 32px;
+  height 32px;
   position: absolute;
   bottom: 0px;
   left: -52px;
