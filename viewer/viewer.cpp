@@ -256,6 +256,14 @@ void viewer::initialize_layout()
                 );
 }
 
+void viewer::reload()
+{
+    page_num = 0;
+    super->statusBar()->showMessage("reload");
+    initialize_dashboard();
+    super->statusBar()->showMessage("");
+}
+
 void viewer::change_post_type(const unsigned int& type)
 {
     qDebug() << type;
@@ -429,10 +437,10 @@ void viewer::keyPressEvent(QKeyEvent* event)
 {
     QWebView::keyPressEvent(event);
 
+    const auto key = event->key();
     if (!loading_flag)
     {
         loading_flag = true;
-        const auto key = event->key();
         if (key == Qt::Key_Down || key == Qt::Key_PageDown || key == Qt::Key_Space)
         {
             if (this->page()->mainFrame()->scrollPosition().y() == this->page()->mainFrame()->scrollBarMaximum(Qt::Vertical))
@@ -443,6 +451,11 @@ void viewer::keyPressEvent(QKeyEvent* event)
             }
         }
         loading_flag = false;
+    }
+
+    if(Qt::ControlModifier == event->modifiers() && key == Qt::Key_R)
+    {
+        reload();
     }
 }
 

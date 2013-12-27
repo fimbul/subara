@@ -45,6 +45,7 @@ private slots:
     void attachWindowObject();
 
 public slots:
+    void reload();
     void get_base_hostname(const QWebElement&);
     void load_next_page();
     void reblog();
