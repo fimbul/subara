@@ -10,6 +10,7 @@ mainwindow::mainwindow(QWidget *parent)
 
 void mainwindow::initialize()
 {
+    this->statusBar()->showMessage("");
     this->setCentralWidget(&viewer);
     viewer.show();
 }

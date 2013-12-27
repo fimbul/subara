@@ -5,6 +5,7 @@
 #include <QWebView>
 #include <QWebFrame>
 #include <QCloseEvent>
+#include <QStatusBar>
 #include <QSettings>
 #include "viewer/viewer.hpp"
 

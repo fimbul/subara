@@ -2,8 +2,8 @@
 
 namespace subara {
 
-viewer::viewer(QWidget *parent)
-    : QWebView(parent), loading_flag(false), page_num(0), post_type("None"), user_info(""), base_hostname("")
+viewer::viewer(QMainWindow* parent)
+    : QWebView(parent), super(parent), loading_flag(false), page_num(0), post_type("None"), user_info(""), base_hostname("")
 {
     initialize();
 }
@@ -137,8 +137,10 @@ void viewer::audio_show_on_tumblr_impl(const QWebElement& url_args, const QWebEl
 
 void viewer::reblog()
 {
+    super->statusBar()->showMessage("reblog the post");
     this->page()->mainFrame()->evaluateJavaScript("post_pos();");
     this->page()->mainFrame()->evaluateJavaScript("cppapi['reblog_impl(const QWebElement&, const QWebElement&, const QWebElement&)'](document.getElementById('post_id'), document.getElementById('reblog_key'), document.getElementById('post_poslist'))");
+    super->statusBar()->showMessage("");
 }
 
 void viewer::reblog_impl(const QWebElement& post_id_args, const QWebElement& reblog_key_args, const QWebElement& position_args)
@@ -186,8 +188,10 @@ void viewer::reblog_impl(const QWebElement& post_id_args, const QWebElement& reb
 
 void viewer::like()
 {
+    super->statusBar()->showMessage("like the post");
     this->page()->mainFrame()->evaluateJavaScript("post_pos();");
     this->page()->mainFrame()->evaluateJavaScript("cppapi['like_impl(const QWebElement&, const QWebElement&, const QWebElement&)'](document.getElementById('post_id'), document.getElementById('reblog_key'), document.getElementById('post_poslist'))");
+    super->statusBar()->showMessage("");
 }
 
 void viewer::like_impl(const QWebElement& post_id_args, const QWebElement& reblog_key_args, const QWebElement& position_args)
@@ -260,32 +264,41 @@ void viewer::change_post_type(const unsigned int& type)
     switch (type)
     {
     case 0:
+        super->statusBar()->showMessage("all posts");
         post_type = "None";
         break;
     case 1:
+        super->statusBar()->showMessage("text posts");
         post_type = "text";
         break;
     case 2:
+        super->statusBar()->showMessage("photo posts");
         post_type = "photo";
         break;
     case 3:
+        super->statusBar()->showMessage("quote posts");
         post_type = "quote";
         break;
     case 4:
+        super->statusBar()->showMessage("link posts");
         post_type = "link";
         break;
     case 5:
+        super->statusBar()->showMessage("chat posts");
         post_type = "chat";
         break;
     case 6:
+        super->statusBar()->showMessage("audio posts");
         post_type = "audio";
         break;
     case 7:
+        super->statusBar()->showMessage("video posts");
         post_type = "video";
         break;
     }
 
     initialize_dashboard();
+    super->statusBar()->showMessage("");
 }
 
 void viewer::initialize_dashboard()
@@ -404,7 +417,9 @@ void viewer::wheelEvent(QWheelEvent* event)
         loading_flag = true;
         if (this->page()->mainFrame()->scrollPosition().y() == this->page()->mainFrame()->scrollBarMaximum(Qt::Vertical))
         {
+            super->statusBar()->showMessage("loading posts");
             load_next_page();
+            super->statusBar()->showMessage("");
         }
         loading_flag = false;
     }
@@ -422,7 +437,9 @@ void viewer::keyPressEvent(QKeyEvent* event)
         {
             if (this->page()->mainFrame()->scrollPosition().y() == this->page()->mainFrame()->scrollBarMaximum(Qt::Vertical))
             {
+                super->statusBar()->showMessage("loading posts");
                 load_next_page();
+                super->statusBar()->showMessage("");
             }
         }
         loading_flag = false;

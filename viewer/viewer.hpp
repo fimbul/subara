@@ -10,6 +10,8 @@
 #include <QWebElement>
 #include <QWheelEvent>
 #include <QKeyEvent>
+#include <QMainWindow>
+#include <QStatusBar>
 #include "oauth/api/api.hpp"
 #include "oauth/errmsg.hpp"
 
@@ -20,7 +22,7 @@ class viewer : public QWebView
     Q_OBJECT
 
 public:
-    viewer(QWidget *parent = 0);
+    viewer(QMainWindow * parent = 0);
 
     void initialize();
     void initialize_layout();
@@ -28,6 +30,8 @@ public:
     void initialize_dashboard();
 
 private:
+    QMainWindow* super;
+
     void wheelEvent(QWheelEvent*);
     void keyPressEvent(QKeyEvent*);
 
