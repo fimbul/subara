@@ -6,10 +6,10 @@ function video_post(post)
   document.getElementById('video_post_argument').innerHTML += post.post_url + '&';
 
   post_data += "<div class=\"post video_post\">"
-  + "<img class=\"post_avatar\" alt=\"avatar\" src=\"http:/api.tumblr.com/v2/blog/" + post.post_url.split(/(http:\/\/|\/post)/)[2] + "/avatar\/64\" />"
+  + "<img class=\"post_avatar\" alt=\"avatar\" src=\"http:/api.tumblr.com/v2/blog/" + post.post_url.split(/(http:\/\/|\/post)/)[2] + "/avatar\/128\" />"
   + "<img alt=\"<\" class=\"balloon\" src=\"data:image/gif;base64,R0lGODlhGAAYAIAAAP///////yH5BAEAAAEALAAAAAAYABgAAAIujI+py+0Po5RgKoDtwVzzP31iJJZPiTboyqys6oJnXJGu9eKjZsh8X/sJh0RIAQA7\" /><div class=\"video_post2\">"
   + post.player[0].embed_code + post.caption
   + "<br /><a class=\"video_post2\" onclick=\"cppapi.video_show_on_tumblr()\">show on tumblr</a>"
-  + "<br /><a onclick=\"cppapi.reblog()\">reblog</a></div></div>";
+  + "<a onclick=\"cppapi.reblog()\"><img class=\"reblog\" alt=\"R\" src=\"data:image/gif;base64,R0lGODlhIAAgAIABACBAIP///ywAAAAAIAAgAAACQ4yPqcvtD6OctNrLgN68d+iFISiWGtZsaHauiuomcHzMaUsCuWSzetRbBH07Wg1nHK6UKCbGZMpBPdIpx4jNardcbAEAOw==\" /></a></div></div>";
 }
 )delimiter"

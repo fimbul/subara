@@ -158,13 +158,6 @@ a.video_post2 {
   color: #151515;
 }
 
-img.post_avatar {
-  position: absolute;
-  top: 0px;
-  left: -84px;
-  border-radius: 10px;
-}
-
 div.audio_post {
   float: left;
   position:relative;
@@ -216,6 +209,22 @@ div.chat_post2 {
   line-height: 36px;
   text-align: left;
   color: #555555;
+}
+
+img.post_avatar {
+  width: 64px;
+  height 64px;
+  position: absolute;
+  top: 0px;
+  left: -84px;
+  border-radius: 10px;
+}
+
+img.reblog {
+  position: absolute;
+  bottom: 0px;
+  left: -52px;
+  border-radius: 10px;
 }
 
 img.balloon {
