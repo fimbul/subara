@@ -15,8 +15,10 @@ extern QString oauth_token;
 extern QString oauth_token_secret;
 
 namespace api {
+
   extern unsigned int limit;
-}
+
+} // end namespace api
 
 void reset();
 

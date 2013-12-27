@@ -3,7 +3,7 @@
 namespace subara {
 
 viewer::viewer(QMainWindow* parent)
-    : QWebView(parent), super(parent), loading_flag(false), page_num(0), post_type("None"), user_info(""), base_hostname("")
+    : QWebView(parent), super(parent), loading_flag(false), page_num(0), post_type("all"), user_info(""), base_hostname("")
 {
     initialize();
 }
@@ -266,40 +266,40 @@ void viewer::reload()
 
 void viewer::change_post_type(const unsigned int& type)
 {
-    qDebug() << type;
+    //qDebug() << type;
     page_num = 0;
 
-    switch (type)
+    switch (static_cast<post_type_enum>(type))
     {
-    case 0:
+    case post_type_enum::all:
         super->statusBar()->showMessage("all posts");
-        post_type = "None";
+        post_type = "all";
         break;
-    case 1:
+    case post_type_enum::text:
         super->statusBar()->showMessage("text posts");
         post_type = "text";
         break;
-    case 2:
+    case post_type_enum::photo:
         super->statusBar()->showMessage("photo posts");
         post_type = "photo";
         break;
-    case 3:
+    case post_type_enum::quote:
         super->statusBar()->showMessage("quote posts");
         post_type = "quote";
         break;
-    case 4:
+    case post_type_enum::link:
         super->statusBar()->showMessage("link posts");
         post_type = "link";
         break;
-    case 5:
+    case post_type_enum::chat:
         super->statusBar()->showMessage("chat posts");
         post_type = "chat";
         break;
-    case 6:
+    case post_type_enum::audio:
         super->statusBar()->showMessage("audio posts");
         post_type = "audio";
         break;
-    case 7:
+    case post_type_enum::video:
         super->statusBar()->showMessage("video posts");
         post_type = "video";
         break;
@@ -453,7 +453,7 @@ void viewer::keyPressEvent(QKeyEvent* event)
         loading_flag = false;
     }
 
-    if(Qt::ControlModifier == event->modifiers() && key == Qt::Key_R)
+    if (Qt::ControlModifier == event->modifiers() && key == Qt::Key_R)
     {
         reload();
     }

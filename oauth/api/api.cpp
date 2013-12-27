@@ -46,11 +46,11 @@ QString dashboard(
                                      << ("oauth_version=" + oauth_version)
                                      << ("offset=" + offset_s)
                                      << ("reblog_info=" + reblog_info_s);
-    if(since_id > 0)
+    if (since_id > 0)
     {
         oauth_signature_base_string_list << ("since_id=" + since_id_s);
     }
-    if(type != "None")
+    if (type != "all")
     {
         oauth_signature_base_string_list << ("type=" + type);
     }
@@ -78,11 +78,11 @@ QString dashboard(
                            << ("oauth_version=" + oauth_version)
                            << ("offset=" + offset_s)
                            << ("reblog_info=" + reblog_info_s);
-    if(since_id > 0)
+    if (since_id > 0)
     {
         oauth_request_url_list << ("since_id=" + since_id_s);
     }
-    if(type != "None")
+    if (type != "all")
     {
         oauth_request_url_list << ("type=" + type);
     }

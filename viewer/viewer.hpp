@@ -41,6 +41,18 @@ private:
     QString user_info;
     QString base_hostname;
 
+    enum class post_type_enum : unsigned int
+    {
+        all   = 0u,
+        text  = 1u,
+        photo = 2u,
+        quote = 3u,
+        link  = 4u,
+        chat  = 5u,
+        audio = 6u,
+        video = 7u
+    };
+
 private slots:
     void attachWindowObject();
 
