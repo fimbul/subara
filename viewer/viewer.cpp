@@ -252,6 +252,42 @@ void viewer::initialize_layout()
                 );
 }
 
+void viewer::change_post_type(const unsigned int& type)
+{
+    qDebug() << type;
+    page_num = 0;
+
+    switch (type)
+    {
+    case 0:
+        post_type = "None";
+        break;
+    case 1:
+        post_type = "text";
+        break;
+    case 2:
+        post_type = "photo";
+        break;
+    case 3:
+        post_type = "quote";
+        break;
+    case 4:
+        post_type = "link";
+        break;
+    case 5:
+        post_type = "chat";
+        break;
+    case 6:
+        post_type = "audio";
+        break;
+    case 7:
+        post_type = "video";
+        break;
+    }
+
+    initialize_dashboard();
+}
+
 void viewer::initialize_dashboard()
 {
     QString dashboard_data = "";
@@ -278,7 +314,17 @@ void viewer::initialize_dashboard()
 
     QStringList initialize_dashboard_js = {
         "var post_data = \"\";",
+        "document.getElementById(\"dashboard\").innerHTML = \"\";",
+        "document.getElementById(\"reblog_key\").innerHTML = \"\";",
+        "document.getElementById(\"post_poslist\").innerHTML = \"\";",
+        "document.getElementById(\"post_id\").innerHTML = \"\";",
+        "document.getElementById(\"video_post_argument\").innerHTML = \"\";",
+        "document.getElementById(\"video_post_poslist\").innerHTML = \"\";",
+        "document.getElementById(\"audio_post_argument\").innerHTML = \"\";",
+        "document.getElementById(\"audio_post_poslist\").innerHTML = \"\";",
         "var posts = " + dashboard_data + ".response.posts;",
+    #include "viewer/dashboard/type_menu.js.txt"
+        ,
     #include "viewer/dashboard/photo_post.js.txt"
         ,
     #include "viewer/dashboard/quote_post.js.txt"

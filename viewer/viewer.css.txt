@@ -19,12 +19,21 @@ body {
   margin: 0 auto;
 }
 
+div.post {
+  word-wrap: break-word;
+  max-width: 570px;
+  min-height: 168px;
+}
+
+.post img {
+  max-width: 570px;
+}
+
 div.photo_post {
   float: left;
   position:relative;
   width: 95%;
   height: auto;
-  min-height: 150px;
   padding: 10px 15px;
   margin: 10px auto;
   background-color: #ffffff;
@@ -43,7 +52,7 @@ div.quote_post {
   display:table;
   width: 95%;
   height: auto;
-  min-height: 150px;
+  min-height: 168px;
   margin: 10px auto;
   padding: 10px 15px;
   background-color: #ffffff;
@@ -73,7 +82,6 @@ div.text_post {
   display:table;
   width: 95%;
   height: auto;
-  min-height: 150px;
   margin: 10px auto;
   padding: 10px 15px;
   background-color: #ffffff;
@@ -104,7 +112,6 @@ div.link_post {
   display:table;
   width: 95%;
   height: auto;
-  min-height: 150px;
   margin: 10px auto;
   padding: 10px 15px;
   background-color: #ffffff;
@@ -137,7 +144,6 @@ div.video_post {
   display:table;
   width: 95%;
   height: auto;
-  min-height: 150px;
   margin: 10px auto;
   padding: 10px 15px;
   background-color: #ffffff;
@@ -164,7 +170,6 @@ div.audio_post {
   display:table;
   width: 95%;
   height: auto;
-  min-height: 150px;
   margin: 10px auto;
   padding: 10px 15px;
   background-color: #ffffff;
@@ -191,7 +196,6 @@ div.chat_post {
   display:table;
   width: 95%;
   height: auto;
-  min-height: 150px;
   margin: 10px auto;
   padding: 10px 15px;
   background-color: #ffffff;
@@ -251,6 +255,48 @@ img.balloon {
   position: fixed;
   top: -100px; // hide argument
   left: 0px;
+}
+
+#type_menu {
+  float none;
+  position:relative;
+  width: 600px;
+  height: auto;
+  margin: 0 auto;
+}
+
+#type_menu ul {
+  float none;
+  position:relative;
+  margin: auto;
+  padding: 0;
+  list-style: none;
+}
+#type_menu li {
+  display: inline;
+  padding: 0;
+  margin: 0;
+  float: left;
+}
+#type_menu li a {
+  display: block;
+  border-radius: 10px;
+  border: 1px solid #151515;
+  background-color: #ffffff;
+  padding: 8px 3px;
+  text-decoration: none;
+  color: #151515;
+  min-width: 67px;
+  margin: 5px 0 8px 0;
+  text-align: center;
+  font-size: 14px;
+}
+
+#type_menu li a:hover {
+  border-left: 1px solid #555555;
+  border-top: 1px solid #555555;
+  border-bottom: 1px solid #555555;
+  background-color: #cccccc;
 }
 
 )delimiter"

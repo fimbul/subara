@@ -51,6 +51,7 @@ public slots:
     void video_show_on_tumblr_impl(const QWebElement&, const QWebElement&);
     void audio_show_on_tumblr();
     void audio_show_on_tumblr_impl(const QWebElement&, const QWebElement&);
+    void change_post_type(const unsigned int&);
 };
 
 } // end namespace subara

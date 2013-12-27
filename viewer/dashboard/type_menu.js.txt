@@ -1,0 +1,13 @@
+R"delimiter(
+document.getElementById("type_menu").innerHTML = "";
+document.getElementById("type_menu").innerHTML += "<ul>";
+document.getElementById("type_menu").innerHTML += "<li><a onclick=\"cppapi.change_post_type(0)\">all</a></li>";
+document.getElementById("type_menu").innerHTML += "<li><a onclick=\"cppapi.change_post_type(1)\">text</a></li>";
+document.getElementById("type_menu").innerHTML += "<li><a onclick=\"cppapi.change_post_type(2)\">photo</a></li>";
+document.getElementById("type_menu").innerHTML += "<li><a onclick=\"cppapi.change_post_type(3)\">quote</a></li>";
+document.getElementById("type_menu").innerHTML += "<li><a onclick=\"cppapi.change_post_type(4)\">link</a></li>";
+document.getElementById("type_menu").innerHTML += "<li><a onclick=\"cppapi.change_post_type(5)\">chat</a></li>";
+document.getElementById("type_menu").innerHTML += "<li><a onclick=\"cppapi.change_post_type(6)\">audio</a></li>";
+document.getElementById("type_menu").innerHTML += "<li><a onclick=\"cppapi.change_post_type(7)\">video</a></li>";
+document.getElementById("type_menu").innerHTML += "</ul>";
+)delimiter"
