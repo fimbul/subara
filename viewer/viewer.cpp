@@ -420,6 +420,7 @@ void viewer::wheelEvent(QWheelEvent* event)
 {
     QWebView::wheelEvent(event);
 
+    /* page loader */
     if (!loading_flag)
     {
         loading_flag = true;
@@ -440,6 +441,7 @@ void viewer::keyPressEvent(QKeyEvent* event)
     const auto key = event->key();
     const auto mod = event->modifiers();
 
+    /* page loader */
     if (!loading_flag)
     {
         loading_flag = true;
@@ -455,42 +457,42 @@ void viewer::keyPressEvent(QKeyEvent* event)
         loading_flag = false;
     }
 
+    /* reload shortcut */
     if (mod == Qt::ControlModifier && key == Qt::Key_R)
     {
         reload();
     }
 
-    if (mod == Qt::ControlModifier && key == Qt::Key_1)
+    /* change_post_type shortcut */
+    if (mod == Qt::ControlModifier)
     {
-        change_post_type(0);
-    }
-    else if (mod == Qt::ControlModifier && key == Qt::Key_2)
-    {
-        change_post_type(1);
-    }
-    else if (mod == Qt::ControlModifier && key == Qt::Key_3)
-    {
-        change_post_type(2);
-    }
-    else if (mod == Qt::ControlModifier && key == Qt::Key_4)
-    {
-        change_post_type(3);
-    }
-    else if (mod == Qt::ControlModifier && key == Qt::Key_5)
-    {
-        change_post_type(4);
-    }
-    else if (mod == Qt::ControlModifier && key == Qt::Key_6)
-    {
-        change_post_type(5);
-    }
-    else if (mod == Qt::ControlModifier && key == Qt::Key_7)
-    {
-        change_post_type(6);
-    }
-    else if (mod == Qt::ControlModifier && key == Qt::Key_8)
-    {
-        change_post_type(7);
+        switch (key)
+        {
+        case Qt::Key_1:
+            change_post_type(static_cast<unsigned int>(post_type_enum::all));
+            break;
+        case Qt::Key_2:
+            change_post_type(static_cast<unsigned int>(post_type_enum::text));
+            break;
+        case Qt::Key_3:
+            change_post_type(static_cast<unsigned int>(post_type_enum::photo));
+            break;
+        case Qt::Key_4:
+            change_post_type(static_cast<unsigned int>(post_type_enum::quote));
+            break;
+        case Qt::Key_5:
+            change_post_type(static_cast<unsigned int>(post_type_enum::link));
+            break;
+        case Qt::Key_6:
+            change_post_type(static_cast<unsigned int>(post_type_enum::chat));
+            break;
+        case Qt::Key_7:
+            change_post_type(static_cast<unsigned int>(post_type_enum::audio));
+            break;
+        case Qt::Key_8:
+            change_post_type(static_cast<unsigned int>(post_type_enum::video));
+            break;
+        }
     }
 }
 
