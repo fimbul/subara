@@ -438,6 +438,8 @@ void viewer::keyPressEvent(QKeyEvent* event)
     QWebView::keyPressEvent(event);
 
     const auto key = event->key();
+    const auto mod = event->modifiers();
+
     if (!loading_flag)
     {
         loading_flag = true;
@@ -453,9 +455,42 @@ void viewer::keyPressEvent(QKeyEvent* event)
         loading_flag = false;
     }
 
-    if (Qt::ControlModifier == event->modifiers() && key == Qt::Key_R)
+    if (mod == Qt::ControlModifier && key == Qt::Key_R)
     {
         reload();
+    }
+
+    if (mod == Qt::ControlModifier && key == Qt::Key_1)
+    {
+        change_post_type(0);
+    }
+    else if (mod == Qt::ControlModifier && key == Qt::Key_2)
+    {
+        change_post_type(1);
+    }
+    else if (mod == Qt::ControlModifier && key == Qt::Key_3)
+    {
+        change_post_type(2);
+    }
+    else if (mod == Qt::ControlModifier && key == Qt::Key_4)
+    {
+        change_post_type(3);
+    }
+    else if (mod == Qt::ControlModifier && key == Qt::Key_5)
+    {
+        change_post_type(4);
+    }
+    else if (mod == Qt::ControlModifier && key == Qt::Key_6)
+    {
+        change_post_type(5);
+    }
+    else if (mod == Qt::ControlModifier && key == Qt::Key_7)
+    {
+        change_post_type(6);
+    }
+    else if (mod == Qt::ControlModifier && key == Qt::Key_8)
+    {
+        change_post_type(7);
     }
 }
 
