@@ -43,7 +43,7 @@ QString dashboard(
 
 QString info();
 
-
+QString user_likes(unsigned int limit = 20, unsigned long long int offset = 0);
 
 bool reblog(const QString&, const QString&, const QString&);
 bool like(const QString&, const QString&);

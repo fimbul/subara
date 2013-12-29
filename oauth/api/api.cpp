@@ -200,6 +200,16 @@ bool like(const QString& reblog_key, const QString& id)
     return oauth_post("http://api.tumblr.com/v2/user/like", params).first;
 }
 
+QString user_likes(unsigned int limit, unsigned long long int offset)
+{
+    QVector<QString> params;
+
+    params.push_back("limit=" + QString::number(limit));
+    params.push_back("offset=" + QString::number(offset));
+
+    return oauth_get("http://api.tumblr.com/v2/user/likes", params).second;
+}
+
 } // end namespace api
 
 } // end namespace oauth

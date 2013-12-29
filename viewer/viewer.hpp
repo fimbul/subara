@@ -12,6 +12,7 @@
 #include <QKeyEvent>
 #include <QMainWindow>
 #include <QStatusBar>
+#include <string>
 #include "oauth/api/api.hpp"
 #include "oauth/errmsg.hpp"
 
@@ -38,8 +39,10 @@ private:
     bool loading_flag;
     unsigned int page_num;
     QString post_type;
+    bool like_mode;
     QString user_info;
     QString base_hostname;
+    bool no_more_posts;
 
     enum class post_type_enum : unsigned int
     {
@@ -50,7 +53,8 @@ private:
         link  = 4u,
         chat  = 5u,
         audio = 6u,
-        video = 7u
+        video = 7u,
+        like  = 8u
     };
 
 private slots:

@@ -3,7 +3,15 @@
 namespace subara {
 
 viewer::viewer(QMainWindow* parent)
-    : QWebView(parent), super(parent), loading_flag(false), page_num(0), post_type("all"), user_info(""), base_hostname("")
+    : QWebView(parent),
+      super(parent),
+      loading_flag(false),
+      page_num(0),
+      post_type("all"),
+      like_mode(false),
+      user_info(""),
+      base_hostname(""),
+      no_more_posts(false)
 {
     initialize();
 }
@@ -137,7 +145,7 @@ void viewer::audio_show_on_tumblr_impl(const QWebElement& url_args, const QWebEl
 
 void viewer::reblog()
 {
-    super->statusBar()->showMessage("reblog the post");
+    super->statusBar()->showMessage("reblogged the post");
     this->page()->mainFrame()->evaluateJavaScript("post_pos();");
     this->page()->mainFrame()->evaluateJavaScript("cppapi['reblog_impl(const QWebElement&, const QWebElement&, const QWebElement&)'](document.getElementById('post_id'), document.getElementById('reblog_key'), document.getElementById('post_poslist'))");
     super->statusBar()->showMessage("");
@@ -188,7 +196,7 @@ void viewer::reblog_impl(const QWebElement& post_id_args, const QWebElement& reb
 
 void viewer::like()
 {
-    super->statusBar()->showMessage("like the post");
+    super->statusBar()->showMessage("liked the post");
     this->page()->mainFrame()->evaluateJavaScript("post_pos();");
     this->page()->mainFrame()->evaluateJavaScript("cppapi['like_impl(const QWebElement&, const QWebElement&, const QWebElement&)'](document.getElementById('post_id'), document.getElementById('reblog_key'), document.getElementById('post_poslist'))");
     super->statusBar()->showMessage("");
@@ -266,9 +274,12 @@ void viewer::reload()
 
 void viewer::change_post_type(const unsigned int& type)
 {
-    //qDebug() << type;
+    // reset type
     page_num = 0;
+    like_mode = false;
+    no_more_posts = false;
 
+    // set type
     switch (static_cast<post_type_enum>(type))
     {
     case post_type_enum::all:
@@ -303,6 +314,10 @@ void viewer::change_post_type(const unsigned int& type)
         super->statusBar()->showMessage("video posts");
         post_type = "video";
         break;
+    case post_type_enum::like:
+        super->statusBar()->showMessage("likes");
+        like_mode = true;
+        break;
     }
 
     initialize_dashboard();
@@ -311,28 +326,6 @@ void viewer::change_post_type(const unsigned int& type)
 
 void viewer::initialize_dashboard()
 {
-    QString dashboard_data = "";
-
-    try
-    {
-        dashboard_data = oauth::api::dashboard(config::api::limit, 0, post_type);
-    }
-    catch (const char* errmsg)
-    {
-        oauth::err_msg_alert(errmsg);
-        return;
-    }
-    catch (const QString& errmsg)
-    {
-        oauth::err_msg_alert(errmsg);
-        return;
-    }
-    catch (...)
-    {
-        oauth::err_msg_alert("Error: getting dashboard failed");
-        return;
-    }
-
     QStringList initialize_dashboard_js = {
         "var post_data = \"\";",
         "document.getElementById(\"dashboard\").innerHTML = \"\";",
@@ -343,7 +336,6 @@ void viewer::initialize_dashboard()
         "document.getElementById(\"video_post_poslist\").innerHTML = \"\";",
         "document.getElementById(\"audio_post_argument\").innerHTML = \"\";",
         "document.getElementById(\"audio_post_poslist\").innerHTML = \"\";",
-        "var posts = " + dashboard_data + ".response.posts;",
     #include "viewer/dashboard/type_menu.js.txt"
         ,
     #include "viewer/dashboard/photo_post.js.txt"
@@ -377,9 +369,17 @@ void viewer::load_next_page()
 
     QString dashboard_data = "";
 
+
     try
     {
-        dashboard_data = oauth::api::dashboard(config::api::limit, config::api::limit * (page_num - 1), post_type);
+        if (!like_mode)
+        {
+            dashboard_data = oauth::api::dashboard(config::api::limit, config::api::limit * (page_num - 1), post_type);
+        }
+        else
+        {
+            dashboard_data = oauth::api::user_likes(config::api::limit, config::api::limit * (page_num - 1));
+        }
     }
     catch (const char* errmsg)
     {
@@ -397,9 +397,19 @@ void viewer::load_next_page()
         return;
     }
 
+    // if no more posts
+    if (dashboard_data.contains("posts\":[]"))
+    {
+        no_more_posts = true;
+    }
+
     QStringList initialize_dashboard_js = {
         "var post_data = \"\";",
-        "var posts = " + dashboard_data + ".response.posts;",
+        (
+        !like_mode
+        ? ("var posts = " + dashboard_data + ".response.posts;")
+        : ("var posts = " + dashboard_data + ".response.liked_posts;")
+        ),
     #include "viewer/dashboard/dashboard.js.txt"
         ,
         "var page_data = document.createElement('div');",
@@ -423,14 +433,21 @@ void viewer::wheelEvent(QWheelEvent* event)
     /* page loader */
     if (!loading_flag)
     {
-        loading_flag = true;
-        if (this->page()->mainFrame()->scrollPosition().y() == this->page()->mainFrame()->scrollBarMaximum(Qt::Vertical))
+        if(!no_more_posts)
         {
-            super->statusBar()->showMessage("loading posts");
-            load_next_page();
-            super->statusBar()->showMessage("");
+            loading_flag = true;
+            if (this->page()->mainFrame()->scrollPosition().y() == this->page()->mainFrame()->scrollBarMaximum(Qt::Vertical))
+            {
+                super->statusBar()->showMessage("loading posts");
+                load_next_page();
+                super->statusBar()->showMessage("");
+            }
+            loading_flag = false;
         }
-        loading_flag = false;
+        else
+        {
+            super->statusBar()->showMessage("no more posts");
+        }
     }
 }
 
@@ -444,17 +461,24 @@ void viewer::keyPressEvent(QKeyEvent* event)
     /* page loader */
     if (!loading_flag)
     {
-        loading_flag = true;
-        if (key == Qt::Key_Down || key == Qt::Key_PageDown || key == Qt::Key_Space)
+        if (!no_more_posts)
         {
-            if (this->page()->mainFrame()->scrollPosition().y() == this->page()->mainFrame()->scrollBarMaximum(Qt::Vertical))
+            loading_flag = true;
+            if (key == Qt::Key_Down || key == Qt::Key_PageDown || key == Qt::Key_Space)
             {
-                super->statusBar()->showMessage("loading posts");
-                load_next_page();
-                super->statusBar()->showMessage("");
+                if (this->page()->mainFrame()->scrollPosition().y() == this->page()->mainFrame()->scrollBarMaximum(Qt::Vertical))
+                {
+                    super->statusBar()->showMessage("loading posts");
+                    load_next_page();
+                    super->statusBar()->showMessage("");
+                }
             }
+            loading_flag = false;
         }
-        loading_flag = false;
+        else
+        {
+            super->statusBar()->showMessage("no more posts");
+        }
     }
 
     /* reload shortcut */
@@ -491,6 +515,9 @@ void viewer::keyPressEvent(QKeyEvent* event)
             break;
         case Qt::Key_8:
             change_post_type(static_cast<unsigned int>(post_type_enum::video));
+            break;
+        case Qt::Key_L:
+            change_post_type(static_cast<unsigned int>(post_type_enum::like));
             break;
         }
     }

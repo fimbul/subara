@@ -225,6 +225,7 @@ img.post_avatar {
 }
 
 img.reblog {
+  cursor: pointer;
   width: 32px;
   height 32px;
   position: absolute;
@@ -234,6 +235,7 @@ img.reblog {
 }
 
 img.like {
+  cursor: pointer;
   width: 32px;
   height 32px;
   position: absolute;
@@ -257,6 +259,16 @@ img.balloon {
   left: 0px;
 }
 
+img.user_likes {
+  cursor: pointer;
+  width: 32px;
+  height 32px;
+  position: absolute;
+  top: 5px;
+  right: 0px;
+  border-radius: 10px;
+}
+
 #type_menu {
   float none;
   position:relative;
@@ -273,6 +285,7 @@ img.balloon {
   list-style: none;
 }
 #type_menu li {
+  cursor: pointer;
   display: inline;
   padding: 0;
   margin: 0;
@@ -286,7 +299,7 @@ img.balloon {
   padding: 8px 3px;
   text-decoration: none;
   color: #151515;
-  min-width: 67px;
+  min-width: 61px;
   margin: 5px 0 8px 0;
   text-align: center;
   font-size: 14px;
@@ -297,6 +310,11 @@ img.balloon {
   border-top: 1px solid #555555;
   border-bottom: 1px solid #555555;
   background-color: #cccccc;
+}
+
+a.show_on_tumblr
+{
+  cursor: pointer;
 }
 
 )delimiter"
