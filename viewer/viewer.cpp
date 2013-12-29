@@ -523,4 +523,9 @@ void viewer::keyPressEvent(QKeyEvent* event)
     }
 }
 
+void viewer::contextMenuEvent (QContextMenuEvent* event)
+{
+    qDebug() << event;
+}
+
 } // end namespace subara

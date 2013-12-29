@@ -35,6 +35,7 @@ private:
 
     void wheelEvent(QWheelEvent*);
     void keyPressEvent(QKeyEvent*);
+    void contextMenuEvent (QContextMenuEvent* event);
 
     bool loading_flag;
     unsigned int page_num;
