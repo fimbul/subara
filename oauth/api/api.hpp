@@ -13,6 +13,7 @@
 #include <QUrl>
 #include <QUrlQuery>
 #include <chrono>
+#include <QPair>
 #include "config/config.hpp"
 
 namespace subara {
@@ -28,6 +29,9 @@ extern const QString& oauth_secret_key;
 extern const QString& oauth_token;
 extern const QString& oauth_token_secret;
 
+QPair<bool, QString> oauth_get(const QString&, const QVector<QString>& = {});
+QPair<bool, QString> oauth_post(const QString&, const QVector<QString>& = {});
+
 QString dashboard(
         unsigned int limit = 20,
         unsigned long long int offset = 0,
@@ -38,6 +42,8 @@ QString dashboard(
         );
 
 QString info();
+
+
 
 bool reblog(const QString&, const QString&, const QString&);
 bool like(const QString&, const QString&);

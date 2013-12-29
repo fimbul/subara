@@ -100,7 +100,7 @@ void viewer::video_show_on_tumblr_impl(const QWebElement& url_args, const QWebEl
     {
         QDesktopServices::openUrl(QUrl(urls.at(target)));
     }
-};
+}
 
 void viewer::audio_show_on_tumblr()
 {
@@ -133,7 +133,7 @@ void viewer::audio_show_on_tumblr_impl(const QWebElement& url_args, const QWebEl
     {
         QDesktopServices::openUrl(QUrl(urls.at(target)));
     }
-};
+}
 
 void viewer::reblog()
 {
@@ -169,7 +169,7 @@ void viewer::reblog_impl(const QWebElement& post_id_args, const QWebElement& reb
         QString reblog_key = reblog_keys.at(target);
         QString post_id = post_ids.at(target);
         //qDebug() << base_hostname << post_id << reblog_key;
-        auto retry = 0;
+        auto retry = 0u;
         bool result = false;
         do
         {
@@ -220,7 +220,7 @@ void viewer::like_impl(const QWebElement& post_id_args, const QWebElement& reblo
         QString reblog_key = reblog_keys.at(target);
         QString post_id = post_ids.at(target);
         //qDebug() << base_hostname << post_id << reblog_key;
-        auto retry = 0;
+        auto retry = 0u;
         bool result = false;
         do
         {
