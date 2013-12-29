@@ -1,0 +1,25 @@
+R"delimiter(
+function post_pos()
+{
+  document.getElementById('post_poslist').innerHTML = "";
+  Array.prototype.forEach.call(document.getElementsByClassName("post"), function(node) {
+    document.getElementById('post_poslist').innerHTML += node.getBoundingClientRect().top + '&';
+  });
+}
+
+function video_post_pos()
+{
+  document.getElementById('video_post_poslist').innerHTML = "";
+  Array.prototype.forEach.call(document.getElementsByClassName("video_post"), function(node) {
+    document.getElementById('video_post_poslist').innerHTML += node.getBoundingClientRect().top + '&';
+  });
+}
+
+function audio_post_pos()
+{
+  document.getElementById('audio_post_poslist').innerHTML = "";
+  Array.prototype.forEach.call(document.getElementsByClassName("audio_post"), function(node) {
+    document.getElementById('audio_post_poslist').innerHTML += node.getBoundingClientRect().top + '&';
+  });
+}
+)delimiter"

@@ -1,0 +1,11 @@
+R"delimiter(
+function link_post(post)
+{
+  document.getElementById('post_id').innerHTML += post.id + '&';
+  document.getElementById('reblog_key').innerHTML += post.reblog_key + '&';
+
+  post_data += "<div class=\"post link_post\"><img class=\"post_avatar\" alt=\"avatar\" src=\"http:/api.tumblr.com/v2/blog/" + post.post_url.split(/(http:\/\/|\/post)/)[2] + "/avatar\/128\" /><img alt=\"<\" class=\"balloon\" src=\"data:image/gif;base64,R0lGODlhGAAYAIAAAP///////yH5BAEAAAEALAAAAAAYABgAAAIujI+py+0Po5RgKoDtwVzzP31iJJZPiTboyqys6oJnXJGu9eKjZsh8X/sJh0RIAQA7\" /><a onclick=\"cppapi.reblog()\"><img class=\"reblog\" alt=\"R\" src=\"data:image/gif;base64,R0lGODlhIAAgAIABACBAIP///ywAAAAAIAAgAAACQ4yPqcvtD6OctNrLgN68d+iFISiWGtZsaHauiuomcHzMaUsCuWSzetRbBH07Wg1nHK6UKCbGZMpBPdIpx4jNardcbAEAOw==\" /></a><a onclick=\"cppapi.like()\"><img class=\"like\" alt=\"L\" width=\"32\" height=\"32\" src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3QwbECETNJtvgwAAACZpVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVAgb24gYSBNYWOV5F9bAAACPUlEQVRYw2P8////f4YBBEwMAwxGHTDgDmAhpODFw4cMe5cvZ3h+/z4Dv7Awg6WvL4OOpSWGujfPnzPsWbqU4dGNGwzcfHwMZp6eDKauroRd8B8P2Ll48X8Xdvb/DgwMKLg1Lu7/r58/4er2rVz5352bG0NdTVAQijpsAKcDrp069d+JhQXDUBjuTkuDq3NmZcWpbkJODl4H4EwDq3p7Gf79+YMz5LbOmsVw6/x5hmlFRQx/f//GqW7TjBkMn96/Jz0R3j5/nmD0TSkoYLhy5AheNf/+/GF4dP06bXLB5UOHiFLHyctLugOUdHWpks2Y2dgYpJSUSHeAY3g4VRxg7unJwMnNTboD7IKCGBR0dCh2QEBWFnklITMzM0Ph9OkMDEzkJxNzb28GUzc38otiPRsbhqiKCrIs5xYQgHiA0rogsbGRQdvammQHlMyezSAuK0u5A1hYWBjqVqxg4BUWJtrykMJCBoeQEOrVhmIyMgxVixYxMDAyElSrbW3NkN7VRf3q2MLLiyG8pASvGj4REYb6lSsZWFhYiHYAIyltwt+/fzNkWVgw3Dl3Dqt8y6ZNDNa+vrRrkLCysjLULF3KwMrBgSHnnZpKsuUE2wO4wJL2dpQqN1ha+v+XT5/IMeo/WQ749evX/2hVVbgDdi9d+p9cwECuxq1z5/53YGD4H6ep+f/v37/0d8CvX7/+B4iL/986d+5/SgDZBT0rKyuDc2Qkg11wMEWVFSMlXbMvHz8y8PDzD5wDRntGw8IBALbRBAyIylRRAAAAAElFTkSuQmCC\" /></a><div class=\"link_post2\"><h1 class=\"link_post\"><a class=\"link_post\" href=\"" + post.url + "\">" + post.title + "</a></h1>"
+  + post.description
+  + "</div></div>";
+}
+)delimiter"

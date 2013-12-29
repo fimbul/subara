@@ -1,0 +1,24 @@
+R"delimiter(
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>すばらっ</title>
+  <style type="text/css" id="viewer_css">
+  </style>
+</head>
+<body>
+  <div id="type_menu"></div>
+  <div id="dashboard">
+  </div>
+  <div id="base_hostname" class="argument"></div>
+  <div id="reblog_key" class="argument"></div>
+  <div id="post_poslist" class="argument"></div>
+  <div id="post_id" class="argument"></div>
+  <div id="video_post_argument" class="argument"></div>
+  <div id="video_post_poslist" class="argument"></div>
+  <div id="audio_post_argument" class="argument"></div>
+  <div id="audio_post_poslist" class="argument"></div>
+</body>
+</html>
+)delimiter"

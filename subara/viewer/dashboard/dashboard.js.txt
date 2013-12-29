@@ -1,0 +1,37 @@
+R"delimiter(
+posts.forEach(
+  function(post)
+  {
+    var post_type = post.type;
+
+    if (post_type == "photo")
+    {
+      photo_post(post);
+    }
+    else if (post_type == "quote")
+    {
+      quote_post(post);
+    }
+    else if (post_type == "text")
+    {
+      text_post(post);
+    }
+    else if (post_type == "link")
+    {
+      link_post(post);
+    }
+    else if (post_type == "video")
+    {
+      video_post(post);
+    }
+    else if (post_type == "audio")
+    {
+      audio_post(post);
+    }
+    else if (post_type == "chat")
+    {
+      chat_post(post);
+    }
+  }
+);
+)delimiter"
